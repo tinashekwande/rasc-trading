@@ -35,8 +35,10 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-          scrolled || mobileOpen
-            ? 'glass-effect bg-white/98 border-gray-100 shadow-md py-4'
+          mobileOpen
+            ? 'bg-white border-gray-100 shadow-md py-4'
+            : scrolled
+            ? 'glass-effect bg-white/95 border-gray-100 shadow-sm py-4'
             : 'bg-transparent border-transparent py-5'
         }`}
       >
