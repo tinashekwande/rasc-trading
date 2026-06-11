@@ -14,24 +14,20 @@ import AdminPage from './pages/AdminPage';
 
 /* ─── Animated Routes Wrapper ──────────────────────────────── */
 const AnimatedRoutes = () => {
-  const location = useLocation();
-
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        {/* Public pages wrapped in MainLayout */}
-        <Route element={<MainLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="about" element={<AboutPage />} />
-          <Route path="services" element={<ServicesPage />} />
-          <Route path="projects" element={<ProjectsPage />} />
-          <Route path="contact" element={<ContactPage />} />
-        </Route>
+    <Routes>
+      {/* Public pages wrapped in MainLayout */}
+      <Route element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="services" element={<ServicesPage />} />
+        <Route path="projects" element={<ProjectsPage />} />
+        <Route path="contact" element={<ContactPage />} />
+      </Route>
 
-        {/* Admin — no layout wrapper */}
-        <Route path="admin" element={<AdminPage />} />
-      </Routes>
-    </AnimatePresence>
+      {/* Admin — no layout wrapper */}
+      <Route path="admin" element={<AdminPage />} />
+    </Routes>
   );
 };
 
