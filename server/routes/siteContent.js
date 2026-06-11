@@ -2,6 +2,7 @@ import { Router } from 'express';
 import fs from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { supabase, supabaseBucket } from '../config/supabase.js';
 
 const router = Router();
 
@@ -82,8 +83,8 @@ const writeJSON = (filePath, content) => {
   }
 };
 
-// Helper: Save Base64 image upload to disk
-const saveUploadedImage = (base64Str, prefix) => {
+// Helper: Save Base64 image upload to disk or Supabase
+const saveUploadedImage = async (base64Str, prefix) => {
   if (!base64Str || !base64Str.startsWith('data:image')) {
     return base64Str; // Return as is if already a URL or path
   }
@@ -96,8 +97,30 @@ const saveUploadedImage = (base64Str, prefix) => {
   const ext = matches[1] === 'jpeg' ? 'jpg' : matches[1];
   const data = matches[2];
   const buffer = Buffer.from(data, 'base64');
-
   const filename = `${prefix}-${Date.now()}.${ext}`;
+
+  if (supabase) {
+    try {
+      const { error } = await supabase.storage
+        .from(supabaseBucket)
+        .upload(filename, buffer, {
+          contentType: `image/${ext === 'jpg' ? 'jpeg' : ext}`,
+          upsert: true
+        });
+
+      if (error) throw error;
+
+      const { data: publicUrlData } = supabase.storage
+        .from(supabaseBucket)
+        .getPublicUrl(filename);
+
+      return publicUrlData.publicUrl;
+    } catch (err) {
+      console.error('❌ Failed to upload image to Supabase storage, trying local fallback:', err);
+    }
+  }
+
+  // Local disk fallback
   const uploadDir = join(__dirname, '..', '..', 'public', 'images', 'uploads');
 
   // Ensure upload folder exists
@@ -108,6 +131,39 @@ const saveUploadedImage = (base64Str, prefix) => {
   fs.writeFileSync(join(uploadDir, filename), buffer);
   return `/images/uploads/${filename}`;
 };
+
+// Seeding helper for Supabase
+const seedSupabaseIfEmpty = async () => {
+  if (!supabase) return;
+  try {
+    // Check projects
+    const { count: projCount, error: projError } = await supabase
+      .from('projects')
+      .select('*', { count: 'exact', head: true });
+    
+    if (!projError && projCount === 0) {
+      console.log('🌱 Seeding default projects to Supabase...');
+      const { error } = await supabase.from('projects').insert(defaultProjects);
+      if (error) throw error;
+    }
+
+    // Check team
+    const { count: teamCount, error: teamError } = await supabase
+      .from('team')
+      .select('*', { count: 'exact', head: true });
+    
+    if (!teamError && teamCount === 0) {
+      console.log('🌱 Seeding default team to Supabase...');
+      const { error } = await supabase.from('team').insert(defaultTeam);
+      if (error) throw error;
+    }
+  } catch (err) {
+    console.error('⚠️ Supabase seeding check failed (tables might not exist yet):', err);
+  }
+};
+
+// Trigger seed check after a short delay on startup
+setTimeout(seedSupabaseIfEmpty, 5000);
 
 // Middleware: Admin verification check
 const verifyAdmin = (req, res, next) => {
@@ -123,21 +179,35 @@ const verifyAdmin = (req, res, next) => {
 // ============================================
 
 // GET /api/projects - Retrieve all projects
-router.get('/projects', (req, res) => {
-  const projectsList = readJSON(PROJECTS_FILE);
-  res.json({ success: true, data: projectsList });
+router.get('/projects', async (req, res) => {
+  try {
+    if (supabase) {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return res.json({ success: true, data });
+    }
+
+    const projectsList = readJSON(PROJECTS_FILE);
+    res.json({ success: true, data: projectsList });
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    res.status(500).json({ success: false, error: 'Internal server error.' });
+  }
 });
 
 // POST /api/projects - Create a new project (Admin Only)
-router.post('/projects', verifyAdmin, (req, res) => {
+router.post('/projects', verifyAdmin, async (req, res) => {
   try {
     const { title, category, image } = req.body;
     if (!title || !category || !image) {
       return res.status(400).json({ success: false, error: 'Title, category, and image are required.' });
     }
 
-    const savedImagePath = saveUploadedImage(image, 'project');
-    const projectsList = readJSON(PROJECTS_FILE);
+    const savedImagePath = await saveUploadedImage(image, 'project');
 
     const newProject = {
       id: `proj-${Date.now()}`,
@@ -146,6 +216,16 @@ router.post('/projects', verifyAdmin, (req, res) => {
       image: savedImagePath
     };
 
+    if (supabase) {
+      const { error } = await supabase
+        .from('projects')
+        .insert([newProject]);
+
+      if (error) throw error;
+      return res.status(201).json({ success: true, data: newProject });
+    }
+
+    const projectsList = readJSON(PROJECTS_FILE);
     projectsList.unshift(newProject);
     writeJSON(PROJECTS_FILE, projectsList);
 
@@ -157,12 +237,39 @@ router.post('/projects', verifyAdmin, (req, res) => {
 });
 
 // DELETE /api/projects/:id - Remove a project (Admin Only)
-router.delete('/projects/:id', verifyAdmin, (req, res) => {
+router.delete('/projects/:id', verifyAdmin, async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (supabase) {
+      const { data: project } = await supabase
+        .from('projects')
+        .select('image')
+        .eq('id', id)
+        .single();
+
+      const { error } = await supabase
+        .from('projects')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      if (project && project.image && project.image.includes(supabaseBucket)) {
+        try {
+          const urlParts = project.image.split('/');
+          const filename = urlParts[urlParts.length - 1];
+          await supabase.storage.from(supabaseBucket).remove([filename]);
+        } catch (storageErr) {
+          console.error('Failed to clean up image from Supabase Storage:', storageErr);
+        }
+      }
+
+      return res.json({ success: true, message: 'Project removed successfully.' });
+    }
+
     let projectsList = readJSON(PROJECTS_FILE);
     const initialLength = projectsList.length;
-
     projectsList = projectsList.filter(p => p.id !== id);
 
     if (projectsList.length === initialLength) {
@@ -182,21 +289,35 @@ router.delete('/projects/:id', verifyAdmin, (req, res) => {
 // ============================================
 
 // GET /api/team - Retrieve all team members
-router.get('/team', (req, res) => {
-  const teamList = readJSON(TEAM_FILE);
-  res.json({ success: true, data: teamList });
+router.get('/team', async (req, res) => {
+  try {
+    if (supabase) {
+      const { data, error } = await supabase
+        .from('team')
+        .select('*')
+        .order('created_at', { ascending: true });
+
+      if (error) throw error;
+      return res.json({ success: true, data });
+    }
+
+    const teamList = readJSON(TEAM_FILE);
+    res.json({ success: true, data: teamList });
+  } catch (error) {
+    console.error('Error fetching team:', error);
+    res.status(500).json({ success: false, error: 'Internal server error.' });
+  }
 });
 
 // POST /api/team - Add a team member (Admin Only)
-router.post('/team', verifyAdmin, (req, res) => {
+router.post('/team', verifyAdmin, async (req, res) => {
   try {
     const { name, position, description, image } = req.body;
     if (!name || !position || !description || !image) {
       return res.status(400).json({ success: false, error: 'All fields (name, position, bio, and image) are required.' });
     }
 
-    const savedImagePath = saveUploadedImage(image, 'team');
-    const teamList = readJSON(TEAM_FILE);
+    const savedImagePath = await saveUploadedImage(image, 'team');
 
     const newMember = {
       id: `team-${Date.now()}`,
@@ -206,6 +327,16 @@ router.post('/team', verifyAdmin, (req, res) => {
       image: savedImagePath
     };
 
+    if (supabase) {
+      const { error } = await supabase
+        .from('team')
+        .insert([newMember]);
+
+      if (error) throw error;
+      return res.status(201).json({ success: true, data: newMember });
+    }
+
+    const teamList = readJSON(TEAM_FILE);
     teamList.push(newMember);
     writeJSON(TEAM_FILE, teamList);
 
@@ -217,12 +348,39 @@ router.post('/team', verifyAdmin, (req, res) => {
 });
 
 // DELETE /api/team/:id - Remove a team member (Admin Only)
-router.delete('/team/:id', verifyAdmin, (req, res) => {
+router.delete('/team/:id', verifyAdmin, async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (supabase) {
+      const { data: member } = await supabase
+        .from('team')
+        .select('image')
+        .eq('id', id)
+        .single();
+
+      const { error } = await supabase
+        .from('team')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      if (member && member.image && member.image.includes(supabaseBucket)) {
+        try {
+          const urlParts = member.image.split('/');
+          const filename = urlParts[urlParts.length - 1];
+          await supabase.storage.from(supabaseBucket).remove([filename]);
+        } catch (storageErr) {
+          console.error('Failed to clean up image from Supabase Storage:', storageErr);
+        }
+      }
+
+      return res.json({ success: true, message: 'Team member removed successfully.' });
+    }
+
     let teamList = readJSON(TEAM_FILE);
     const initialLength = teamList.length;
-
     teamList = teamList.filter(t => t.id !== id);
 
     if (teamList.length === initialLength) {
