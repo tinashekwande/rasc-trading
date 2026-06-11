@@ -1,0 +1,80 @@
+[
+  {
+    "id": "proj-1781187441316",
+    "title": "Grand line",
+    "category": "Residential",
+    "image": "/images/uploads/project-1781187441311.jpg"
+  },
+  {
+    "id": "proj-1",
+    "title": "Modern Residence",
+    "category": "Residential",
+    "image": "/images/projects/project-1.jpg"
+  },
+  {
+    "id": "proj-2",
+    "title": "Office Complex Renovation",
+    "category": "Commercial",
+    "image": "/images/projects/project-2.jpg"
+  },
+  {
+    "id": "proj-3",
+    "title": "Luxury Kitchen Remodel",
+    "category": "Renovation",
+    "image": "/images/projects/project-3.jpg"
+  },
+  {
+    "id": "proj-4",
+    "title": "Retail Store Fit-Out",
+    "category": "Commercial",
+    "image": "/images/projects/project-4.jpg"
+  },
+  {
+    "id": "proj-5",
+    "title": "Contemporary Townhouse",
+    "category": "Residential",
+    "image": "/images/projects/project-5.jpg"
+  },
+  {
+    "id": "proj-6",
+    "title": "Industrial Warehouse Conversion",
+    "category": "Commercial",
+    "image": "/images/projects/project-6.jpg"
+  },
+  {
+    "id": "proj-7",
+    "title": "Family Home Extension",
+    "category": "Residential",
+    "image": "/images/projects/project-7.jpg"
+  },
+  {
+    "id": "proj-8",
+    "title": "Restaurant Interior",
+    "category": "Commercial",
+    "image": "/images/projects/project-8.jpg"
+  },
+  {
+    "id": "proj-9",
+    "title": "Nutec Housing Development",
+    "category": "Residential",
+    "image": "/images/projects/project-9.jpg"
+  },
+  {
+    "id": "proj-10",
+    "title": "Corporate Office White-Box",
+    "category": "Commercial",
+    "image": "/images/projects/project-10.jpg"
+  },
+  {
+    "id": "proj-11",
+    "title": "Bathroom & Tiling Renovation",
+    "category": "Renovation",
+    "image": "/images/projects/project-11.jpg"
+  },
+  {
+    "id": "proj-12",
+    "title": "Multi-Unit Residential Complex",
+    "category": "Residential",
+    "image": "/images/projects/project-12.jpg"
+  }
+]

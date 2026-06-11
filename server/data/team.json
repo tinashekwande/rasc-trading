@@ -1,0 +1,23 @@
+[
+  {
+    "id": "team-1",
+    "name": "Rocky Naidoo",
+    "position": "Founder & Director",
+    "description": "Rocky founded RASC Trading in 1990 as a sole proprietorship. Under his leadership, the business has grown into one of South Africa's premier independent building contractors.",
+    "image": "/images/about/about-3.jpg"
+  },
+  {
+    "id": "team-2",
+    "name": "Shaun Naidoo",
+    "position": "Co-Director & Project Manager",
+    "description": "Shaun handles on-site executions, structural compliance engineering, and direct customer relations, ensuring all builds are executed on budget and with precision.",
+    "image": "/images/about/about-4.jpg"
+  },
+  {
+    "id": "team-1781188463572",
+    "name": "Tinashe",
+    "position": "Web Designer",
+    "description": "He is the web designer",
+    "image": "/images/uploads/team-1781188463566.jpg"
+  }
+]
