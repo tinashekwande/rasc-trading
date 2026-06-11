@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import './config/env.js';
 
 import fs from 'fs';
 import express from 'express';
@@ -36,7 +35,7 @@ app.get('/api/health', (req, res) => {
 const distPath = join(__dirname, '..', 'dist');
 if (process.env.NODE_ENV === 'production' || fs.existsSync(distPath)) {
   app.use(express.static(distPath));
-  app.get('*', (req, res) => {
+  app.get('/*splat', (req, res) => {
     res.sendFile(join(distPath, 'index.html'));
   });
 }
