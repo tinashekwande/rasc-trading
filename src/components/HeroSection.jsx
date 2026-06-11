@@ -94,7 +94,7 @@ export default function HeroSection() {
               to="/contact"
               className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl bg-primary text-white hover:bg-primary-hover"
             >
-              Start Your Project
+              Get in Touch
             </Link>
             <Link
               to="/projects"
