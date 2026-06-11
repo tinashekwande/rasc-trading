@@ -258,7 +258,7 @@ export default function AdminPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <motion.div
-          className="bg-white border border-gray-150 p-8 md:p-10 rounded-3xl shadow-lg max-w-md w-full text-center"
+          className="bg-white p-8 md:p-10 rounded-3xl shadow-xl max-w-md w-full text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -345,7 +345,7 @@ export default function AdminPage() {
       {/* Stats Quadrant */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {/* Card 1 */}
-        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
+        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
             <FiMessageSquare size={18} className="md:w-5 md:h-5" />
           </div>
@@ -358,7 +358,7 @@ export default function AdminPage() {
         </div>
 
         {/* Card 2 */}
-        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
+        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-yellow-50 text-yellow-600 flex items-center justify-center flex-shrink-0">
             <FiMail size={18} className="md:w-5 md:h-5" />
           </div>
@@ -371,7 +371,7 @@ export default function AdminPage() {
         </div>
 
         {/* Card 3 */}
-        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
+        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center flex-shrink-0">
             <FiPlus size={18} className="md:w-5 md:h-5" />
           </div>
@@ -384,7 +384,7 @@ export default function AdminPage() {
         </div>
 
         {/* Card 4 */}
-        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
+        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
             <FiUser size={18} className="md:w-5 md:h-5" />
           </div>
@@ -421,7 +421,7 @@ export default function AdminPage() {
 
       {/* Main Tab Content Panel */}
       {loading ? (
-        <div className="bg-white border border-gray-150 rounded-3xl py-20 flex flex-col items-center justify-center gap-3 shadow-xs">
+        <div className="bg-white rounded-3xl py-20 flex flex-col items-center justify-center gap-3 shadow-md">
           <div className="w-8 h-8 border-2 border-gray-200 border-t-gray-900 rounded-full animate-spin" />
           <p className="text-sm text-gray-400 font-medium">Syncing database...</p>
         </div>
@@ -429,7 +429,7 @@ export default function AdminPage() {
         <div className="space-y-8">
           {/* 2.1 Inquiries and Quotes Tables */}
           {(activeTab === 'inquiries' || activeTab === 'quotes') && (
-            <div className="bg-white border border-gray-150 rounded-3xl overflow-hidden shadow-xs">
+            <div className="bg-white rounded-3xl overflow-hidden shadow-md">
               {/* Desktop Table View */}
               <div className="hidden md:block overflow-x-auto">
                 <table className="w-full border-collapse text-left">
@@ -544,7 +544,7 @@ export default function AdminPage() {
 
           {/* 2.2 Manage Projects Content */}
           {activeTab === 'projects' && (
-            <div className="p-6 md:p-8 space-y-8 bg-white border border-gray-150 rounded-3xl shadow-xs">
+            <div className="p-6 md:p-8 space-y-8 bg-white rounded-3xl shadow-md">
               <div>
                 <h3 className="font-semibold text-lg text-gray-900 mb-6">Add New Project</h3>
                 <div className="flex flex-col lg:flex-row gap-8">
@@ -615,7 +615,7 @@ export default function AdminPage() {
                   {/* Right: Live Preview Card */}
                   <div className="w-full lg:w-72 flex-shrink-0">
                     <span className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Live Card Preview</span>
-                    <div className="border border-gray-150 rounded-2xl overflow-hidden shadow-xs bg-white relative group min-h-[240px] flex flex-col justify-between">
+                    <div className="rounded-2xl overflow-hidden shadow-sm bg-white relative group min-h-[240px] flex flex-col justify-between">
                       {newProjImage ? (
                         <>
                           <div className="aspect-[4/3] bg-gray-50 overflow-hidden">
@@ -643,7 +643,7 @@ export default function AdminPage() {
                 <h3 className="font-semibold text-lg text-gray-900 mb-6">Current Work Registry ({projectsList.length})</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                   {projectsList.map(proj => (
-                    <div key={proj.id} className="border border-gray-150 rounded-2xl overflow-hidden shadow-xs bg-white relative group">
+                    <div key={proj.id} className="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 bg-white relative group">
                       <div className="aspect-[4/3] bg-gray-50 overflow-hidden">
                         <img src={proj.image} alt={proj.title} className="w-full h-full object-cover" />
                       </div>
@@ -670,7 +670,7 @@ export default function AdminPage() {
 
           {/* 2.3 Manage Team Content */}
           {activeTab === 'team' && (
-            <div className="p-6 md:p-8 space-y-8 bg-white border border-gray-150 rounded-3xl shadow-xs">
+            <div className="p-6 md:p-8 space-y-8 bg-white rounded-3xl shadow-md">
               <div>
                 <h3 className="font-semibold text-lg text-gray-900 mb-6">Add New Team Member</h3>
                 <div className="flex flex-col lg:flex-row gap-8">
@@ -752,7 +752,7 @@ export default function AdminPage() {
                   {/* Right: Live Preview Card */}
                   <div className="w-full lg:w-80 flex-shrink-0">
                     <span className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Live Profile Preview</span>
-                    <div className="border border-gray-150 rounded-2xl p-6 shadow-xs bg-white relative flex flex-col items-center text-center min-h-[300px]">
+                    <div className="rounded-2xl p-6 shadow-sm bg-white relative flex flex-col items-center text-center min-h-[300px]">
                       {newMemberImage ? (
                         <>
                           <div className="w-28 h-28 rounded-full overflow-hidden border border-gray-100 shadow-sm flex-shrink-0 relative">
@@ -781,7 +781,7 @@ export default function AdminPage() {
                 <h3 className="font-semibold text-lg text-gray-900 mb-6">Current Team Leadership ({teamList.length})</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {teamList.map(member => (
-                    <div key={member.id} className="border border-gray-150 rounded-2xl p-6 shadow-xs bg-white relative flex flex-col items-center text-center pb-16">
+                    <div key={member.id} className="rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white relative flex flex-col items-center text-center pb-16">
                       <div className="w-24 h-24 rounded-full overflow-hidden border border-gray-100 shadow-sm flex-shrink-0 relative">
                         <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
                       </div>
@@ -815,7 +815,7 @@ export default function AdminPage() {
           <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <div className="absolute inset-0 cursor-pointer" onClick={() => setSelectedInquiry(null)} />
             <motion.div
-              className="bg-white border border-gray-150 p-6 md:p-8 rounded-3xl shadow-2xl max-w-lg w-full relative z-10 flex flex-col max-h-[90vh] sm:max-h-[85vh] overflow-hidden"
+              className="bg-white p-6 md:p-8 rounded-3xl shadow-2xl max-w-lg w-full relative z-10 flex flex-col max-h-[90vh] sm:max-h-[85vh] overflow-hidden"
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
