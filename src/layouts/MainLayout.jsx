@@ -58,6 +58,10 @@ const MainLayout = () => {
 
   // Scroll to top instantly on every route change, bypassing smooth scroll
   useEffect(() => {
+    // Force reset overflow style when route changes to prevent any modals/menus leaving it stuck
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
       // Force instant resize calculation on layout shift for new page
