@@ -42,9 +42,16 @@ const MainLayout = () => {
     // Expose lenis to window so we can trigger scroll to elements if needed
     window.lenisInstance = lenis;
 
+    // Observe body resizing (e.g. image loads, dynamic widgets) and resize Lenis automatically
+    const resizeObserver = new ResizeObserver(() => {
+      lenis.resize();
+    });
+    resizeObserver.observe(document.body);
+
     return () => {
       lenis.destroy();
       cancelAnimationFrame(rafId);
+      resizeObserver.disconnect();
       window.lenisInstance = null;
     };
   }, []);
@@ -53,6 +60,10 @@ const MainLayout = () => {
   useEffect(() => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
+      // Force instant resize calculation on layout shift for new page
+      setTimeout(() => {
+        lenisRef.current?.resize();
+      }, 50);
     } else {
       window.scrollTo(0, 0);
     }
