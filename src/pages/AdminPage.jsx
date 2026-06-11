@@ -343,54 +343,54 @@ export default function AdminPage() {
       </header>
 
       {/* Stats Quadrant */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {/* Card 1 */}
-        <div className="flex items-center gap-4 p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
-          <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
-            <FiMessageSquare size={20} />
+        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+            <FiMessageSquare size={18} className="md:w-5 md:h-5" />
           </div>
           <div>
-            <span className="block text-2xl font-bold text-gray-900">{inquiries.length}</span>
-            <span className="block text-xs text-gray-400 font-semibold uppercase tracking-wider mt-0.5">
+            <span className="block text-xl md:text-2xl font-bold text-gray-900">{inquiries.length}</span>
+            <span className="block text-[9px] md:text-xs text-gray-400 font-semibold uppercase tracking-wider mt-0.5">
               Inquiries
             </span>
           </div>
         </div>
 
         {/* Card 2 */}
-        <div className="flex items-center gap-4 p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
-          <div className="w-12 h-12 rounded-xl bg-yellow-50 text-yellow-600 flex items-center justify-center flex-shrink-0">
-            <FiMail size={20} />
+        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-yellow-50 text-yellow-600 flex items-center justify-center flex-shrink-0">
+            <FiMail size={18} className="md:w-5 md:h-5" />
           </div>
           <div>
-            <span className="block text-2xl font-bold text-gray-900">{quotes.length}</span>
-            <span className="block text-xs text-gray-400 font-semibold uppercase tracking-wider mt-0.5">
+            <span className="block text-xl md:text-2xl font-bold text-gray-900">{quotes.length}</span>
+            <span className="block text-[9px] md:text-xs text-gray-400 font-semibold uppercase tracking-wider mt-0.5">
               Quotes
             </span>
           </div>
         </div>
 
         {/* Card 3 */}
-        <div className="flex items-center gap-4 p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
-          <div className="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center flex-shrink-0">
-            <FiPlus size={20} />
+        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center flex-shrink-0">
+            <FiPlus size={18} className="md:w-5 md:h-5" />
           </div>
           <div>
-            <span className="block text-2xl font-bold text-gray-900">{projectsList.length}</span>
-            <span className="block text-xs text-gray-400 font-semibold uppercase tracking-wider mt-0.5">
+            <span className="block text-xl md:text-2xl font-bold text-gray-900">{projectsList.length}</span>
+            <span className="block text-[9px] md:text-xs text-gray-400 font-semibold uppercase tracking-wider mt-0.5">
               Projects
             </span>
           </div>
         </div>
 
         {/* Card 4 */}
-        <div className="flex items-center gap-4 p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
-          <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
-            <FiUser size={20} />
+        <div className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-white border border-gray-150 rounded-2xl shadow-xs">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
+            <FiUser size={18} className="md:w-5 md:h-5" />
           </div>
           <div>
-            <span className="block text-2xl font-bold text-gray-950">{teamList.length}</span>
-            <span className="block text-xs text-gray-400 font-semibold uppercase tracking-wider mt-0.5">
+            <span className="block text-xl md:text-2xl font-bold text-gray-950">{teamList.length}</span>
+            <span className="block text-[9px] md:text-xs text-gray-400 font-semibold uppercase tracking-wider mt-0.5">
               Team Members
             </span>
           </div>
@@ -398,7 +398,7 @@ export default function AdminPage() {
       </div>
 
       {/* Tabs Selector */}
-      <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2 p-1.5 bg-gray-50 border border-gray-100 rounded-2xl w-full sm:w-max">
+      <div className="flex gap-2 p-1.5 bg-gray-50 border border-gray-100 rounded-2xl w-full overflow-x-auto scrollbar-none whitespace-nowrap">
         {[
           { id: 'inquiries', label: 'Contact Inquiries' },
           { id: 'quotes', label: 'Quote Requests' },
@@ -408,7 +408,7 @@ export default function AdminPage() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer text-center ${
+            className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer text-center inline-block ${
               activeTab === tab.id
                 ? 'bg-gray-900 text-white shadow-xs'
                 : 'bg-transparent text-gray-500 hover:text-gray-950'
@@ -430,7 +430,8 @@ export default function AdminPage() {
           {/* 2.1 Inquiries and Quotes Tables */}
           {(activeTab === 'inquiries' || activeTab === 'quotes') && (
             <div className="bg-white border border-gray-150 rounded-3xl overflow-hidden shadow-xs">
-              <div className="overflow-x-auto">
+              {/* Desktop Table View */}
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full border-collapse text-left">
                   <thead>
                     <tr className="bg-gray-50 border-b border-gray-150">
@@ -492,6 +493,52 @@ export default function AdminPage() {
                   </tbody>
                 </table>
               </div>
+              
+              {/* Mobile Card List View */}
+              <div className="block md:hidden divide-y divide-gray-100">
+                {currentInquiriesAndQuotes.map((item) => (
+                  <div key={item.id} className="p-5 space-y-4">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h4 className="font-semibold text-base text-gray-900">{item.name}</h4>
+                        <p className="text-xs text-gray-500 mt-0.5">{item.email}</p>
+                      </div>
+                      <span
+                        className={`inline-block px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider border ${
+                          item.status === 'New' || item.status === 'new' || item.status === 'Pending'
+                            ? 'bg-yellow-50 border-yellow-100 text-yellow-700'
+                            : 'bg-green-50 border-green-100 text-green-700'
+                        }`}
+                      >
+                        {item.status}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-xs text-gray-400 font-medium pt-1">
+                      <div className="flex items-center gap-1.5">
+                        <FiCalendar size={13} />
+                        <span>{item.createdAt ? new Date(item.createdAt).toLocaleDateString() : item.date}</span>
+                      </div>
+                      <span className="bg-gray-50 border border-gray-100 px-2 py-0.5 rounded-md text-[10px] uppercase font-bold text-gray-500">
+                        {activeTab === 'quotes' ? item.projectType : item.service}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={() => setSelectedInquiry(item)}
+                      className="w-full py-2.5 rounded-xl border border-gray-150 hover:bg-blue-50 hover:text-blue-600 transition-all cursor-pointer text-gray-600 flex items-center justify-center gap-2 text-xs font-semibold"
+                    >
+                      <FiEye size={14} />
+                      <span>Read Message</span>
+                    </button>
+                  </div>
+                ))}
+                {currentInquiriesAndQuotes.length === 0 && (
+                  <div className="p-8 text-center text-sm text-gray-400">
+                    No records found.
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
@@ -507,20 +554,20 @@ export default function AdminPage() {
                       <div className="space-y-2">
                         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Project Title</label>
                         <input
-                          type="text"
-                          required
-                          value={newProjTitle}
-                          onChange={e => setNewProjTitle(e.target.value)}
-                          placeholder="e.g. Modern Office Fit-Out"
-                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
+                           type="text"
+                           required
+                           value={newProjTitle}
+                           onChange={e => setNewProjTitle(e.target.value)}
+                           placeholder="e.g. Modern Office Fit-Out"
+                           className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
                         />
                       </div>
                       <div className="space-y-2">
                         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</label>
                         <select
-                          value={newProjCategory}
-                          onChange={e => setNewProjCategory(e.target.value)}
-                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
+                           value={newProjCategory}
+                           onChange={e => setNewProjCategory(e.target.value)}
+                           className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
                         >
                           <option value="Residential">Residential</option>
                           <option value="Commercial">Commercial</option>
@@ -532,36 +579,36 @@ export default function AdminPage() {
                     </div>
                     <div className="space-y-2">
                       <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Project Image</label>
-                      <div className="flex gap-3 items-center">
+                      <div className="flex flex-wrap gap-3 items-center">
                         <input
-                          type="file"
-                          accept="image/*"
-                          onChange={e => handleImageUpload(e, setNewProjImage)}
-                          className="hidden"
-                          id="proj-image-file"
+                           type="file"
+                           accept="image/*"
+                           onChange={e => handleImageUpload(e, setNewProjImage)}
+                           className="hidden"
+                           id="proj-image-file"
                         />
                         <label
-                          htmlFor="proj-image-file"
-                          className="px-5 py-2.5 rounded-xl border border-dashed border-gray-300 hover:border-gray-950 bg-gray-50 text-xs font-semibold text-gray-600 cursor-pointer text-center flex-grow transition-colors truncate max-w-[180px]"
+                           htmlFor="proj-image-file"
+                           className="px-5 py-2.5 rounded-xl border border-dashed border-gray-300 hover:border-gray-950 bg-gray-50 text-xs font-semibold text-gray-600 cursor-pointer text-center flex-grow sm:flex-initial transition-colors truncate"
                         >
                           {newProjImage ? "Change Photo" : "Choose File"}
                         </label>
                         {newProjImage && (
                           <button
-                            type="button"
-                            onClick={() => setNewProjImage('')}
-                            className="px-4 py-2.5 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-xs font-semibold transition-colors cursor-pointer"
+                             type="button"
+                             onClick={() => setNewProjImage('')}
+                             className="px-4 py-2.5 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-xs font-semibold transition-colors cursor-pointer w-full sm:w-auto"
                           >
-                            Remove
+                             Remove
                           </button>
                         )}
                       </div>
                     </div>
                     <button
-                      type="submit"
-                      className="px-6 py-3 rounded-full font-semibold bg-gray-900 text-white hover:bg-gray-800 text-xs cursor-pointer shadow-xs transition-colors"
+                       type="submit"
+                       className="px-6 py-3 rounded-full font-semibold bg-gray-900 text-white hover:bg-gray-800 text-xs cursor-pointer shadow-xs transition-colors"
                     >
-                      Add Project
+                       Add Project
                     </button>
                   </form>
 
@@ -580,7 +627,7 @@ export default function AdminPage() {
                           </div>
                         </>
                       ) : (
-                        <div className="flex-grow flex flex-col items-center justify-center p-6 text-center border border-dashed border-gray-200 rounded-2xl bg-gray-50/50 m-2 text-gray-400">
+                        <div className="flex-grow flex flex-col items-center justify-center p-6 text-center border border-dashed border-gray-200 rounded-2xl bg-gray-50/50 m-2 text-gray-400 animate-pulse">
                           <FiPlus size={24} className="mb-2 text-gray-300" />
                           <p className="text-xs font-medium">Upload a photo to preview</p>
                         </div>
@@ -594,27 +641,27 @@ export default function AdminPage() {
 
               <div>
                 <h3 className="font-semibold text-lg text-gray-900 mb-6">Current Work Registry ({projectsList.length})</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                   {projectsList.map(proj => (
                     <div key={proj.id} className="border border-gray-150 rounded-2xl overflow-hidden shadow-xs bg-white relative group">
                       <div className="aspect-[4/3] bg-gray-50 overflow-hidden">
                         <img src={proj.image} alt={proj.title} className="w-full h-full object-cover" />
                       </div>
-                      <div className="p-4 pr-12">
-                        <span className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">{proj.category}</span>
-                        <h4 className="font-semibold text-sm text-gray-900 truncate">{proj.title}</h4>
+                      <div className="p-3 pr-10 md:p-4 md:pr-12">
+                        <span className="block text-[8px] md:text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">{proj.category}</span>
+                        <h4 className="font-semibold text-xs md:text-sm text-gray-900 truncate">{proj.title}</h4>
                       </div>
                       <button
-                        onClick={() => handleDeleteProject(proj.id)}
-                        className="absolute bottom-3 right-3 p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 transition-colors cursor-pointer"
-                        title="Delete work item"
+                         onClick={() => handleDeleteProject(proj.id)}
+                         className="absolute bottom-2 right-2 md:bottom-3 md:right-3 p-1.5 md:p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 transition-colors cursor-pointer"
+                         title="Delete work item"
                       >
-                        <FiTrash2 size={13} />
+                        <FiTrash2 size={12} className="md:w-3.5 md:h-3.5" />
                       </button>
                     </div>
                   ))}
                   {projectsList.length === 0 && (
-                    <p className="text-sm text-gray-400">No project content posted yet.</p>
+                    <p className="text-sm text-gray-400 col-span-full">No project content posted yet.</p>
                   )}
                 </div>
               </div>
@@ -633,23 +680,23 @@ export default function AdminPage() {
                       <div className="space-y-2">
                         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Full Name</label>
                         <input
-                          type="text"
-                          required
-                          value={newMemberName}
-                          onChange={e => setNewMemberName(e.target.value)}
-                          placeholder="e.g. Shaun Naidoo"
-                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
+                           type="text"
+                           required
+                           value={newMemberName}
+                           onChange={e => setNewMemberName(e.target.value)}
+                           placeholder="e.g. Shaun Naidoo"
+                           className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
                         />
                       </div>
                       <div className="space-y-2">
                         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Position / Role</label>
                         <input
-                          type="text"
-                          required
-                          value={newMemberPosition}
-                          onChange={e => setNewMemberPosition(e.target.value)}
-                          placeholder="e.g. Co-Director & Project Manager"
-                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
+                           type="text"
+                           required
+                           value={newMemberPosition}
+                           onChange={e => setNewMemberPosition(e.target.value)}
+                           placeholder="e.g. Co-Director & Project Manager"
+                           className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
                         />
                       </div>
                     </div>
@@ -657,48 +704,48 @@ export default function AdminPage() {
                     <div className="space-y-2">
                       <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Brief Biography / Description</label>
                       <textarea
-                        required
-                        value={newMemberDescription}
-                        onChange={e => setNewMemberDescription(e.target.value)}
-                        placeholder="Describe their role, experience, and certifications..."
-                        rows={3}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all resize-none"
+                         required
+                         value={newMemberDescription}
+                         onChange={e => setNewMemberDescription(e.target.value)}
+                         placeholder="Describe their role, experience, and certifications..."
+                         rows={3}
+                         className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all resize-none"
                       />
                     </div>
 
                     <div className="space-y-2">
                       <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Profile Photo</label>
-                      <div className="flex gap-3 items-center">
+                      <div className="flex flex-wrap gap-3 items-center">
                         <input
-                          type="file"
-                          accept="image/*"
-                          onChange={e => handleImageUpload(e, setNewMemberImage)}
-                          className="hidden"
-                          id="team-image-file"
+                           type="file"
+                           accept="image/*"
+                           onChange={e => handleImageUpload(e, setNewMemberImage)}
+                           className="hidden"
+                           id="team-image-file"
                         />
                         <label
-                          htmlFor="team-image-file"
-                          className="px-5 py-2.5 rounded-xl border border-dashed border-gray-300 hover:border-gray-950 bg-gray-50 text-xs font-semibold text-gray-600 cursor-pointer text-center flex-grow transition-colors truncate max-w-[180px]"
+                           htmlFor="team-image-file"
+                           className="px-5 py-2.5 rounded-xl border border-dashed border-gray-300 hover:border-gray-950 bg-gray-50 text-xs font-semibold text-gray-600 cursor-pointer text-center flex-grow sm:flex-initial transition-colors truncate"
                         >
                           {newMemberImage ? "Change Photo" : "Choose Photo File"}
                         </label>
                         {newMemberImage && (
                           <button
-                            type="button"
-                            onClick={() => setNewMemberImage('')}
-                            className="px-4 py-2.5 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-xs font-semibold transition-colors cursor-pointer"
+                             type="button"
+                             onClick={() => setNewMemberImage('')}
+                             className="px-4 py-2.5 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-xs font-semibold transition-colors cursor-pointer w-full sm:w-auto"
                           >
-                            Remove
+                             Remove
                           </button>
                         )}
                       </div>
                     </div>
 
                     <button
-                      type="submit"
-                      className="px-6 py-3 rounded-full font-semibold bg-gray-900 text-white hover:bg-gray-800 text-xs cursor-pointer shadow-xs transition-colors"
+                       type="submit"
+                       className="px-6 py-3 rounded-full font-semibold bg-gray-900 text-white hover:bg-gray-800 text-xs cursor-pointer shadow-xs transition-colors"
                     >
-                      Add Team Member
+                       Add Team Member
                     </button>
                   </form>
 
@@ -718,7 +765,7 @@ export default function AdminPage() {
                           </div>
                         </>
                       ) : (
-                        <div className="flex-grow w-full flex flex-col items-center justify-center p-6 border border-dashed border-gray-200 rounded-2xl bg-gray-50/50 text-gray-400">
+                        <div className="flex-grow w-full flex flex-col items-center justify-center p-6 border border-dashed border-gray-200 rounded-2xl bg-gray-50/50 text-gray-400 animate-pulse">
                           <FiPlus size={24} className="mb-2 text-gray-300" />
                           <p className="text-xs font-medium">Upload a profile photo to preview</p>
                         </div>
@@ -732,9 +779,9 @@ export default function AdminPage() {
 
               <div>
                 <h3 className="font-semibold text-lg text-gray-900 mb-6">Current Team Leadership ({teamList.length})</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {teamList.map(member => (
-                    <div key={member.id} className="border border-gray-150 rounded-2xl p-6 shadow-xs bg-white relative flex flex-col items-center text-center pb-14">
+                    <div key={member.id} className="border border-gray-150 rounded-2xl p-6 shadow-xs bg-white relative flex flex-col items-center text-center pb-16">
                       <div className="w-24 h-24 rounded-full overflow-hidden border border-gray-100 shadow-sm flex-shrink-0 relative">
                         <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
                       </div>
@@ -744,16 +791,16 @@ export default function AdminPage() {
                         <p className="text-xs text-gray-500 leading-relaxed">{member.description}</p>
                       </div>
                       <button
-                        onClick={() => handleDeleteTeamMember(member.id)}
-                        className="absolute bottom-4 left-1/2 -translate-x-1/2 p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 transition-colors cursor-pointer"
-                        title="Delete team member"
+                         onClick={() => handleDeleteTeamMember(member.id)}
+                         className="absolute bottom-4 left-1/2 -translate-x-1/2 p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 transition-colors cursor-pointer"
+                         title="Delete team member"
                       >
                         <FiTrash2 size={13} />
                       </button>
                     </div>
                   ))}
                   {teamList.length === 0 && (
-                    <p className="text-sm text-gray-400">No team members registered yet.</p>
+                    <p className="text-sm text-gray-400 col-span-full">No team members registered yet.</p>
                   )}
                 </div>
               </div>
@@ -768,51 +815,55 @@ export default function AdminPage() {
           <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <div className="absolute inset-0 cursor-pointer" onClick={() => setSelectedInquiry(null)} />
             <motion.div
-              className="bg-white border border-gray-150 p-6 md:p-8 rounded-3xl shadow-2xl max-w-lg w-full relative z-10 space-y-6"
+              className="bg-white border border-gray-150 p-6 md:p-8 rounded-3xl shadow-2xl max-w-lg w-full relative z-10 flex flex-col max-h-[90vh] sm:max-h-[85vh] overflow-hidden"
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
             >
-              <div>
-                <span className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">
-                  Inquiry Details ({selectedInquiry.id})
-                </span>
-                <h3 className="font-semibold text-xl text-gray-900">{selectedInquiry.name}</h3>
-                <p className="text-xs text-gray-400 mt-0.5">{selectedInquiry.email} {selectedInquiry.phone && `• ${selectedInquiry.phone}`}</p>
-              </div>
-
-              <div className="space-y-1 bg-gray-50 p-4 rounded-xl border border-gray-150">
-                <span className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest">
-                  Message Body
-                </span>
-                <p className="text-sm text-gray-700 whitespace-pre-line leading-relaxed">
-                  {selectedInquiry.message || selectedInquiry.description || "No message body provided."}
-                </p>
-              </div>
-
-              {selectedInquiry.projectType && (
-                <div className="grid grid-cols-3 gap-3 text-center">
-                  <div className="p-3 bg-gray-50 border border-gray-150 rounded-xl">
-                    <span className="block text-[8px] font-bold text-gray-400 uppercase">Budget</span>
-                    <span className="text-xs font-semibold text-gray-900">{selectedInquiry.budget}</span>
-                  </div>
-                  <div className="p-3 bg-gray-50 border border-gray-150 rounded-xl">
-                    <span className="block text-[8px] font-bold text-gray-400 uppercase">Timeline</span>
-                    <span className="text-xs font-semibold text-gray-900">{selectedInquiry.timeline}</span>
-                  </div>
-                  <div className="p-3 bg-gray-50 border border-gray-150 rounded-xl">
-                    <span className="block text-[8px] font-bold text-gray-400 uppercase">Location</span>
-                    <span className="text-xs font-semibold text-gray-900">{selectedInquiry.location}</span>
-                  </div>
+              <div className="overflow-y-auto space-y-6 flex-grow pr-1 scrollbar-none pb-6 text-left">
+                <div>
+                  <span className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">
+                    Inquiry Details ({selectedInquiry.id})
+                  </span>
+                  <h3 className="font-semibold text-xl text-gray-900">{selectedInquiry.name}</h3>
+                  <p className="text-xs text-gray-400 mt-0.5">{selectedInquiry.email} {selectedInquiry.phone && `• ${selectedInquiry.phone}`}</p>
                 </div>
-              )}
 
-              <button
-                className="w-full py-3 px-6 rounded-full font-semibold bg-gray-900 text-white hover:bg-gray-800 text-xs cursor-pointer shadow-xs transition-colors"
-                onClick={() => setSelectedInquiry(null)}
-              >
-                Close Details
-              </button>
+                <div className="space-y-1 bg-gray-50 p-4 rounded-xl border border-gray-150">
+                  <span className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+                    Message Body
+                  </span>
+                  <p className="text-sm text-gray-700 whitespace-pre-line leading-relaxed">
+                    {selectedInquiry.message || selectedInquiry.description || "No message body provided."}
+                  </p>
+                </div>
+
+                {selectedInquiry.projectType && (
+                  <div className="grid grid-cols-3 gap-3 text-center">
+                    <div className="p-3 bg-gray-50 border border-gray-150 rounded-xl">
+                      <span className="block text-[8px] font-bold text-gray-400 uppercase">Budget</span>
+                      <span className="text-xs font-semibold text-gray-900">{selectedInquiry.budget}</span>
+                    </div>
+                    <div className="p-3 bg-gray-50 border border-gray-150 rounded-xl">
+                      <span className="block text-[8px] font-bold text-gray-400 uppercase">Timeline</span>
+                      <span className="text-xs font-semibold text-gray-900">{selectedInquiry.timeline}</span>
+                    </div>
+                    <div className="p-3 bg-gray-50 border border-gray-150 rounded-xl">
+                      <span className="block text-[8px] font-bold text-gray-400 uppercase">Location</span>
+                      <span className="text-xs font-semibold text-gray-900">{selectedInquiry.location}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="pt-4 border-t border-gray-100">
+                <button
+                   className="w-full py-3.5 px-6 rounded-full font-semibold bg-gray-900 text-white hover:bg-gray-800 text-xs cursor-pointer shadow-xs transition-colors"
+                   onClick={() => setSelectedInquiry(null)}
+                >
+                  Close Details
+                </button>
+              </div>
             </motion.div>
           </div>
         )}
