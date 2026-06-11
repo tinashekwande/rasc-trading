@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import fs from 'fs';
 import express from 'express';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
@@ -31,11 +32,12 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(join(__dirname, '..', 'dist')));
+// Serve static files in production or if build dist folder is present
+const distPath = join(__dirname, '..', 'dist');
+if (process.env.NODE_ENV === 'production' || fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
   app.get('*', (req, res) => {
-    res.sendFile(join(__dirname, '..', 'dist', 'index.html'));
+    res.sendFile(join(distPath, 'index.html'));
   });
 }
 
