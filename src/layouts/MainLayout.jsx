@@ -11,6 +11,16 @@ const MainLayout = () => {
 
   // Initialize Lenis Smooth Scrolling
   useEffect(() => {
+    // Check if the device supports touch (mobile/tablet)
+    const isTouchDevice = 
+      'ontouchstart' in window || 
+      navigator.maxTouchPoints > 0 || 
+      (navigator.msMaxTouchPoints && navigator.msMaxTouchPoints > 0);
+
+    if (isTouchDevice) {
+      return; // Do not initialize Lenis on mobile devices to preserve native touch swiping
+    }
+
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
@@ -18,7 +28,6 @@ const MainLayout = () => {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.2,
     });
 
     lenisRef.current = lenis;
