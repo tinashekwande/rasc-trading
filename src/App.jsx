@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 
 // Layout
 import MainLayout from './layouts/MainLayout';
@@ -40,6 +41,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <AnimatedRoutes />
+      <Analytics />
     </BrowserRouter>
   );
 };
