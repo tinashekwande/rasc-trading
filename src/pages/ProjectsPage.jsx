@@ -118,7 +118,7 @@ export default function ProjectsPage() {
                   onClick={() => setActiveFilter(cat)}
                   className={`px-5 py-2.5 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-gray-900 text-white border-gray-900 shadow-sm'
+                      ? 'bg-primary text-white border-primary shadow-sm'
                       : 'bg-white border-gray-200 text-gray-500 hover:text-gray-950 hover:border-gray-300'
                   }`}
                 >
@@ -184,7 +184,7 @@ export default function ProjectsPage() {
             </Link>
             <a
               href={`tel:${companyInfo.phone.replace(/\s/g, '')}`}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gray-800 text-xs font-semibold hover:bg-gray-900 hover:scale-105 transition-all w-full sm:w-auto justify-center"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gray-800 text-xs font-semibold hover:bg-primary hover:border-primary hover:scale-105 transition-all w-full sm:w-auto justify-center"
             >
               <FiPhone /> Call {companyInfo.phone}
             </a>

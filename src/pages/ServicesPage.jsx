@@ -111,7 +111,7 @@ export default function ServicesPage() {
               {/* Close Button overlay */}
               <button
                 onClick={() => setSelectedService(null)}
-                className="absolute top-4 right-4 h-9 w-9 rounded-full flex items-center justify-center bg-white border border-gray-150 text-gray-700 hover:bg-gray-900 hover:text-white transition-all shadow-sm cursor-pointer z-20"
+                className="absolute top-4 right-4 h-9 w-9 rounded-full flex items-center justify-center bg-white border border-gray-150 text-gray-700 hover:bg-primary hover:text-white hover:border-primary transition-all shadow-sm cursor-pointer z-20"
                 aria-label="Close"
               >
                 <FiX size={18} />
@@ -151,7 +151,7 @@ export default function ServicesPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       {selectedService.features.map((feat, idx) => (
                         <div key={idx} className="flex items-center gap-3 text-sm text-gray-700">
-                          <FiCheckCircle className="text-gray-900 flex-shrink-0" size={15} />
+                          <FiCheckCircle className="text-primary flex-shrink-0" size={15} />
                           <span className="font-medium">{feat}</span>
                         </div>
                       ))}
@@ -164,7 +164,7 @@ export default function ServicesPage() {
                   <Link
                     to="/contact"
                     onClick={() => setSelectedService(null)}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-xs font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-xs w-full sm:w-auto"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary-hover transition-colors shadow-xs w-full sm:w-auto"
                   >
                     Request Estimate <FiArrowRight size={13} />
                   </Link>
@@ -200,7 +200,7 @@ export default function ServicesPage() {
             </Link>
             <a
               href={`tel:${companyInfo.phone.replace(/\s/g, '')}`}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gray-800 text-xs font-semibold hover:bg-gray-900 hover:scale-105 transition-all w-full sm:w-auto justify-center"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gray-800 text-xs font-semibold hover:bg-primary hover:border-primary hover:scale-105 transition-all w-full sm:w-auto justify-center"
             >
               <FiPhone /> Call {companyInfo.phone}
             </a>

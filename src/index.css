@@ -2,6 +2,8 @@
 
 @theme {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --color-primary: #9b2022;
+  --color-primary-hover: #80191b;
   
   --animate-fade-in: fadeIn 1s ease-out forwards;
   --animate-slide-up: slideUp 1s ease-out forwards;
@@ -71,7 +73,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #111827, #6b7280);
+  background: linear-gradient(135deg, var(--color-primary), #6b7280);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -105,7 +107,7 @@ body {
 }
 
 .swiper-pagination-bullet-active {
-  background: #111827 !important;
+  background: var(--color-primary) !important;
   opacity: 1 !important;
   width: 24px !important;
   border-radius: 999px !important;

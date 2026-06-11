@@ -36,7 +36,7 @@ export default function Footer() {
       {/* Scroll to top button */}
       <button
         onClick={scrollToTop}
-        className="absolute top-0 right-8 md:right-16 -translate-y-1/2 h-11 w-11 rounded-full flex items-center justify-center bg-gray-900 text-white border border-gray-800 hover:bg-gray-800 hover:border-gray-700 hover:scale-105 transition-all shadow-lg cursor-pointer"
+        className="absolute top-0 right-8 md:right-16 -translate-y-1/2 h-11 w-11 rounded-full flex items-center justify-center bg-primary text-white border border-gray-800 hover:bg-primary-hover hover:border-gray-700 hover:scale-105 transition-all shadow-lg cursor-pointer"
         aria-label="Scroll to top"
       >
         <FiArrowUp size={18} />
@@ -160,7 +160,7 @@ export default function Footer() {
                 href={companyInfo.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center h-10 w-10 rounded-full border border-gray-900 text-gray-500 hover:text-white hover:bg-gray-900 transition-all"
+                className="inline-flex items-center justify-center h-10 w-10 rounded-full border border-gray-900 text-gray-500 hover:text-white hover:bg-primary transition-all"
                 aria-label="Facebook"
               >
                 <FiFacebook size={16} />

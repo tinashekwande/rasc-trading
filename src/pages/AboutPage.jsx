@@ -149,7 +149,7 @@ export default function AboutPage() {
               {milestones.map((milestone, idx) => (
                 <div className="relative" key={idx}>
                   {/* Stepper Dot */}
-                  <div className="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-gray-900 border-[6px] border-white shadow-sm flex items-center justify-center z-10" />
+                  <div className="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-primary border-[6px] border-white shadow-sm flex items-center justify-center z-10" />
                   <span className="block text-2xl font-bold text-gray-900 mb-1">
                     {milestone.year}
                   </span>
@@ -368,7 +368,7 @@ export default function AboutPage() {
             </Link>
             <a
               href={`tel:${companyInfo.phone.replace(/\s/g, '')}`}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gray-800 text-xs font-semibold hover:bg-gray-900 hover:scale-105 transition-all w-full sm:w-auto justify-center"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gray-800 text-xs font-semibold hover:bg-primary hover:border-primary hover:scale-105 transition-all w-full sm:w-auto justify-center"
             >
               <FiPhone /> Call {companyInfo.phone}
             </a>

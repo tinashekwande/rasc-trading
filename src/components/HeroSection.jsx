@@ -72,7 +72,7 @@ export default function HeroSection() {
         >
           {/* Eyebrow badge */}
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full text-xs font-semibold mb-8 bg-gray-50 border border-gray-100 text-gray-700 shadow-sm">
-            <div className="w-2 h-2 bg-gray-900 rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
             EST. 1990 &bull; NHBRC CERTIFIED BUILDER
           </div>
 
@@ -92,7 +92,7 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4 mb-12 w-full sm:w-auto">
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl bg-gray-900 text-white hover:bg-gray-800"
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl bg-primary text-white hover:bg-primary-hover"
             >
               Start Your Project
             </Link>
@@ -139,7 +139,7 @@ export default function HeroSection() {
                 <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-50 border border-green-100 text-green-700">
                   Sustainable
                 </span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-gray-900 text-white">
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary text-white">
                   Featured
                 </span>
               </div>
@@ -202,7 +202,7 @@ export default function HeroSection() {
               {/* View details button */}
               <Link
                 to="/projects"
-                className="block text-center w-full py-3 px-4 rounded-xl bg-gray-900 text-white font-medium text-sm transition-all duration-200 hover:bg-gray-800 hover:shadow-md"
+                className="block text-center w-full py-3 px-4 rounded-xl bg-primary text-white font-medium text-sm transition-all duration-200 hover:bg-primary-hover hover:shadow-md"
               >
                 View Project Details
               </Link>

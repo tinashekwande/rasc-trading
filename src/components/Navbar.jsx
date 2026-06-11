@@ -68,7 +68,7 @@ export default function Navbar() {
                     <>
                       {link.label}
                       <span
-                        className={`absolute -bottom-0.5 left-0 h-[2px] bg-gray-900 transition-all duration-300 group-hover:w-full ${
+                        className={`absolute -bottom-0.5 left-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full ${
                           isActive ? 'w-full' : 'w-0'
                         }`}
                       />
@@ -89,7 +89,7 @@ export default function Navbar() {
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-md bg-gray-900 text-white hover:bg-gray-800"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-md bg-primary text-white hover:bg-primary-hover"
               >
                 Get a Quote
               </Link>
@@ -133,7 +133,7 @@ export default function Navbar() {
                   <Link
                     to="/contact"
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-gray-900 text-white shadow-sm"
+                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-primary text-white shadow-sm hover:bg-primary-hover"
                   >
                     Get a Quote
                   </Link>

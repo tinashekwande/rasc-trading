@@ -112,7 +112,7 @@ export default function HomePage() {
             </p>
             <Link
               to="/about"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-all hover:scale-105 hover:shadow-md"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary-hover transition-all hover:scale-105 hover:shadow-md"
             >
               Learn More About Us <FiArrowRight />
             </Link>
@@ -148,7 +148,7 @@ export default function HomePage() {
           <div className="text-center mt-12">
             <Link
               to="/services"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-all hover:scale-105 hover:shadow-md"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary-hover transition-all hover:scale-105 hover:shadow-md"
             >
               View All Services <FiArrowRight />
             </Link>
@@ -187,7 +187,7 @@ export default function HomePage() {
           <div className="text-center mt-12">
             <Link
               to="/projects"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-all hover:scale-105 hover:shadow-md"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary-hover transition-all hover:scale-105 hover:shadow-md"
             >
               View Complete Gallery <FiArrowRight />
             </Link>
@@ -237,7 +237,7 @@ export default function HomePage() {
             </Link>
             <a
               href={`tel:${companyInfo.phone.replace(/\s/g, '')}`}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gray-800 text-xs font-semibold hover:bg-gray-900 hover:scale-105 transition-all w-full sm:w-auto justify-center"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gray-800 text-xs font-semibold hover:bg-primary hover:border-primary hover:scale-105 transition-all w-full sm:w-auto justify-center"
             >
               <FiPhone /> Call {companyInfo.phone}
             </a>
@@ -262,7 +262,7 @@ export default function HomePage() {
             </p>
             {/* Quick Contact Box */}
             <div className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100 shadow-sm w-full sm:w-auto">
-              <div className="w-12 h-12 rounded-xl bg-gray-900 text-white flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-primary text-white flex items-center justify-center">
                 <FiPhone size={20} />
               </div>
               <div>

@@ -98,7 +98,7 @@ export default function QuoteForm() {
           Thank you. Our estimating team will review your requirements and get back to you with a detailed scope analysis within 24 to 48 hours.
         </p>
         <button
-          className="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-colors cursor-pointer"
+          className="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary-hover transition-colors cursor-pointer"
           onClick={() => setStatus('idle')}
         >
           Submit Another Request
@@ -211,7 +211,7 @@ export default function QuoteForm() {
         {/* Submit */}
         <motion.button
           type="submit"
-          className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-medium transition-all duration-300 hover:scale-[1.01] hover:shadow-md bg-gray-900 text-white hover:bg-gray-800 disabled:opacity-50 text-sm cursor-pointer"
+          className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-medium transition-all duration-300 hover:scale-[1.01] hover:shadow-md bg-primary text-white hover:bg-primary-hover disabled:opacity-50 text-sm cursor-pointer"
           disabled={status === 'sending'}
           whileTap={{ scale: 0.99 }}
         >

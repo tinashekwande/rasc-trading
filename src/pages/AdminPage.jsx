@@ -332,7 +332,7 @@ export default function AdminPage() {
 
             <button
               type="submit"
-              className="w-full py-3.5 px-6 rounded-full font-semibold transition-all duration-300 hover:scale-[1.01] hover:shadow-md bg-gray-900 text-white hover:bg-gray-800 text-sm cursor-pointer"
+              className="w-full py-3.5 px-6 rounded-full font-semibold transition-all duration-300 hover:scale-[1.01] hover:shadow-md bg-primary text-white hover:bg-primary-hover text-sm cursor-pointer"
             >
               Sign In
             </button>
@@ -439,7 +439,7 @@ export default function AdminPage() {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer text-center inline-block ${
               activeTab === tab.id
-                ? 'bg-gray-900 text-white shadow-xs'
+                ? 'bg-primary text-white shadow-xs'
                 : 'bg-transparent text-gray-500 hover:text-gray-950'
             }`}
           >
@@ -451,7 +451,7 @@ export default function AdminPage() {
       {/* Main Tab Content Panel */}
       {loading ? (
         <div className="bg-white rounded-3xl py-20 flex flex-col items-center justify-center gap-3 shadow-md">
-          <div className="w-8 h-8 border-2 border-gray-200 border-t-gray-900 rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-gray-200 border-t-primary rounded-full animate-spin" />
           <p className="text-sm text-gray-400 font-medium">Syncing database...</p>
         </div>
       ) : (
@@ -635,7 +635,7 @@ export default function AdminPage() {
                     </div>
                     <button
                        type="submit"
-                       className="px-6 py-3 rounded-full font-semibold bg-gray-900 text-white hover:bg-gray-800 text-xs cursor-pointer shadow-xs transition-colors"
+                       className="px-6 py-3 rounded-full font-semibold bg-primary text-white hover:bg-primary-hover text-xs cursor-pointer shadow-xs transition-colors"
                     >
                        Add Project
                     </button>
@@ -772,7 +772,7 @@ export default function AdminPage() {
 
                     <button
                        type="submit"
-                       className="px-6 py-3 rounded-full font-semibold bg-gray-900 text-white hover:bg-gray-800 text-xs cursor-pointer shadow-xs transition-colors"
+                       className="px-6 py-3 rounded-full font-semibold bg-primary text-white hover:bg-primary-hover text-xs cursor-pointer shadow-xs transition-colors"
                     >
                        Add Team Member
                     </button>
@@ -887,7 +887,7 @@ export default function AdminPage() {
 
               <div className="pt-4 border-t border-gray-100">
                 <button
-                   className="w-full py-3.5 px-6 rounded-full font-semibold bg-gray-900 text-white hover:bg-gray-800 text-xs cursor-pointer shadow-xs transition-colors"
+                   className="w-full py-3.5 px-6 rounded-full font-semibold bg-primary text-white hover:bg-primary-hover text-xs cursor-pointer shadow-xs transition-colors"
                    onClick={() => setSelectedInquiry(null)}
                 >
                   Close Details
