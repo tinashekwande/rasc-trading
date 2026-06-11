@@ -35,8 +35,8 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-          scrolled
-            ? 'glass-effect bg-white/95 border-gray-100 shadow-sm py-4'
+          scrolled || mobileOpen
+            ? 'glass-effect bg-white/98 border-gray-100 shadow-md py-4'
             : 'bg-transparent border-transparent py-5'
         }`}
       >
@@ -115,7 +115,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
-                className="md:hidden overflow-hidden border-t border-gray-100 mt-4 pt-4 pb-6 space-y-4"
+                className="md:hidden overflow-hidden border border-gray-100 bg-white mt-4 p-5 rounded-2xl shadow-lg space-y-4"
               >
                 {navigationLinks.map((link) => (
                   <NavLink
