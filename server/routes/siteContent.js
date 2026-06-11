@@ -195,7 +195,7 @@ router.get('/projects', async (req, res) => {
     res.json({ success: true, data: projectsList });
   } catch (error) {
     console.error('Error fetching projects:', error);
-    res.status(500).json({ success: false, error: 'Internal server error.' });
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
   }
 });
 
@@ -232,7 +232,7 @@ router.post('/projects', verifyAdmin, async (req, res) => {
     res.status(201).json({ success: true, data: newProject });
   } catch (error) {
     console.error('Error creating project:', error);
-    res.status(500).json({ success: false, error: 'Internal server error.' });
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
   }
 });
 
@@ -280,7 +280,7 @@ router.delete('/projects/:id', verifyAdmin, async (req, res) => {
     res.json({ success: true, message: 'Project removed successfully.' });
   } catch (error) {
     console.error('Error deleting project:', error);
-    res.status(500).json({ success: false, error: 'Internal server error.' });
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
   }
 });
 
@@ -305,7 +305,7 @@ router.get('/team', async (req, res) => {
     res.json({ success: true, data: teamList });
   } catch (error) {
     console.error('Error fetching team:', error);
-    res.status(500).json({ success: false, error: 'Internal server error.' });
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
   }
 });
 
@@ -343,7 +343,7 @@ router.post('/team', verifyAdmin, async (req, res) => {
     res.status(201).json({ success: true, data: newMember });
   } catch (error) {
     console.error('Error adding team member:', error);
-    res.status(500).json({ success: false, error: 'Internal server error.' });
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
   }
 });
 
@@ -391,7 +391,7 @@ router.delete('/team/:id', verifyAdmin, async (req, res) => {
     res.json({ success: true, message: 'Team member removed successfully.' });
   } catch (error) {
     console.error('Error deleting team member:', error);
-    res.status(500).json({ success: false, error: 'Internal server error.' });
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
   }
 });
 

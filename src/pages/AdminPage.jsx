@@ -7,6 +7,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiLock, FiLogOut, FiMail, FiMessageSquare, FiUser, FiCalendar, FiEye, FiTrash2, FiPlus } from 'react-icons/fi';
 import { projects as fallbackProjects } from '../data/siteData';
 
+const getErrorMessage = async (res, fallbackMessage) => {
+  try {
+    const contentType = res.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      const errJson = await res.json();
+      return errJson.error || fallbackMessage;
+    }
+    const text = await res.text();
+    if (text && text.length < 300 && !text.trim().startsWith('<!DOCTYPE')) {
+      return text.trim();
+    }
+    return `Server error: ${res.status} ${res.statusText || ''}`;
+  } catch (e) {
+    return `Server error: ${res.status} ${res.statusText || ''}`;
+  }
+};
+
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -77,7 +94,7 @@ export default function AdminPage() {
         fetch('/api/team')
       ]);
 
-      if (inqRes.status === 'fulfilled' && inqRes.value.ok) {
+      if (inqRes.status === 'fulfilled' && inqRes.value.ok && inqRes.value.headers.get('content-type')?.includes('application/json')) {
         const data = await inqRes.value.json();
         setInquiries(data.data || []);
       } else {
@@ -88,7 +105,7 @@ export default function AdminPage() {
         ]);
       }
 
-      if (quoteRes.status === 'fulfilled' && quoteRes.value.ok) {
+      if (quoteRes.status === 'fulfilled' && quoteRes.value.ok && quoteRes.value.headers.get('content-type')?.includes('application/json')) {
         const data = await quoteRes.value.json();
         setQuotes(data.data || []);
       } else {
@@ -99,14 +116,14 @@ export default function AdminPage() {
         ]);
       }
 
-      if (projRes.status === 'fulfilled' && projRes.value.ok) {
+      if (projRes.status === 'fulfilled' && projRes.value.ok && projRes.value.headers.get('content-type')?.includes('application/json')) {
         const data = await projRes.value.json();
         setProjectsList(data.data || []);
       } else {
         setProjectsList(fallbackProjects);
       }
 
-      if (teamRes.status === 'fulfilled' && teamRes.value.ok) {
+      if (teamRes.status === 'fulfilled' && teamRes.value.ok && teamRes.value.headers.get('content-type')?.includes('application/json')) {
         const data = await teamRes.value.json();
         setTeamList(data.data || []);
       }
@@ -146,21 +163,26 @@ export default function AdminPage() {
       });
 
       if (res.ok) {
-        const json = await res.json();
-        if (json.success) {
-          setProjectsList(prev => [json.data, ...prev]);
-          setNewProjTitle('');
-          setNewProjCategory('Residential');
-          setNewProjImage('');
-          alert("Project added successfully!");
+        const contentType = res.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const json = await res.json();
+          if (json.success) {
+            setProjectsList(prev => [json.data, ...prev]);
+            setNewProjTitle('');
+            setNewProjCategory('Residential');
+            setNewProjImage('');
+            alert("Project added successfully!");
+            return;
+          }
         }
+        alert("Project added, but response format was unexpected.");
       } else {
-        const errJson = await res.json();
-        alert(`Error: ${errJson.error || 'Failed to add project'}`);
+        const errorMsg = await getErrorMessage(res, 'Failed to add project');
+        alert(`Error: ${errorMsg}`);
       }
     } catch (err) {
       console.error(err);
-      alert("Failed to add project.");
+      alert(`Network / Connection Error: ${err.message || 'Failed to add project'}`);
     }
   };
 
@@ -179,11 +201,12 @@ export default function AdminPage() {
         setProjectsList(prev => prev.filter(p => p.id !== id));
         alert("Project deleted.");
       } else {
-        alert("Failed to delete project.");
+        const errorMsg = await getErrorMessage(res, 'Failed to delete project');
+        alert(`Error: ${errorMsg}`);
       }
     } catch (err) {
       console.error(err);
-      alert("Error deleting project.");
+      alert(`Network / Connection Error: ${err.message || 'Failed to delete project'}`);
     }
   };
 
@@ -211,22 +234,27 @@ export default function AdminPage() {
       });
 
       if (res.ok) {
-        const json = await res.json();
-        if (json.success) {
-          setTeamList(prev => [...prev, json.data]);
-          setNewMemberName('');
-          setNewMemberPosition('');
-          setNewMemberDescription('');
-          setNewMemberImage('');
-          alert("Team member added!");
+        const contentType = res.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const json = await res.json();
+          if (json.success) {
+            setTeamList(prev => [...prev, json.data]);
+            setNewMemberName('');
+            setNewMemberPosition('');
+            setNewMemberDescription('');
+            setNewMemberImage('');
+            alert("Team member added!");
+            return;
+          }
         }
+        alert("Team member added, but response format was unexpected.");
       } else {
-        const errJson = await res.json();
-        alert(`Error: ${errJson.error || 'Failed to add team member'}`);
+        const errorMsg = await getErrorMessage(res, 'Failed to add team member');
+        alert(`Error: ${errorMsg}`);
       }
     } catch (err) {
       console.error(err);
-      alert("Failed to add team member.");
+      alert(`Network / Connection Error: ${err.message || 'Failed to add team member'}`);
     }
   };
 
@@ -245,11 +273,12 @@ export default function AdminPage() {
         setTeamList(prev => prev.filter(t => t.id !== id));
         alert("Team member deleted.");
       } else {
-        alert("Failed to delete team member.");
+        const errorMsg = await getErrorMessage(res, 'Failed to delete team member');
+        alert(`Error: ${errorMsg}`);
       }
     } catch (err) {
       console.error(err);
-      alert("Error deleting team member.");
+      alert(`Network / Connection Error: ${err.message || 'Failed to delete team member'}`);
     }
   };
 
