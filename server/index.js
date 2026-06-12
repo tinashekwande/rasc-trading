@@ -40,9 +40,11 @@ if (process.env.NODE_ENV === 'production' || fs.existsSync(distPath)) {
   });
 }
 
-app.listen(PORT, () => {
-  console.log(`🚀 RASC Trading API server running on port ${PORT}`);
-  console.log(`   Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 RASC Trading API server running on port ${PORT}`);
+    console.log(`   Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
 
 export default app;
