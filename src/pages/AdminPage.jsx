@@ -4,7 +4,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiLock, FiLogOut, FiMail, FiMessageSquare, FiUser, FiCalendar, FiEye, FiTrash2, FiPlus } from 'react-icons/fi';
+import { FiLock, FiLogOut, FiMail, FiMessageSquare, FiUser, FiCalendar, FiEye, FiTrash2, FiPlus, FiEdit } from 'react-icons/fi';
 import { projects as fallbackProjects } from '../data/siteData';
 
 const getErrorMessage = async (res, fallbackMessage) => {
@@ -45,6 +45,13 @@ export default function AdminPage() {
   const [newMemberPosition, setNewMemberPosition] = useState('');
   const [newMemberDescription, setNewMemberDescription] = useState('');
   const [newMemberImage, setNewMemberImage] = useState('');
+
+  // Edit states for team
+  const [editingMember, setEditingMember] = useState(null);
+  const [editMemberName, setEditMemberName] = useState('');
+  const [editMemberPosition, setEditMemberPosition] = useState('');
+  const [editMemberDescription, setEditMemberDescription] = useState('');
+  const [editMemberImage, setEditMemberImage] = useState('');
 
   // Detail View Modal State
   const [selectedInquiry, setSelectedInquiry] = useState(null);
@@ -279,6 +286,58 @@ export default function AdminPage() {
     } catch (err) {
       console.error(err);
       alert(`Network / Connection Error: ${err.message || 'Failed to delete team member'}`);
+    }
+  };
+
+  const handleEditClick = (member) => {
+    setEditingMember(member);
+    setEditMemberName(member.name);
+    setEditMemberPosition(member.position);
+    setEditMemberDescription(member.description);
+    setEditMemberImage(member.image);
+  };
+
+  const handleUpdateTeamMember = async (e) => {
+    e.preventDefault();
+    if (!editMemberName || !editMemberPosition || !editMemberDescription) {
+      alert("Please fill in all text fields.");
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/team/${editingMember.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': 'rasc-admin-2024'
+        },
+        body: JSON.stringify({
+          name: editMemberName,
+          position: editMemberPosition,
+          description: editMemberDescription,
+          image: editMemberImage
+        })
+      });
+
+      if (res.ok) {
+        const contentType = res.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const json = await res.json();
+          if (json.success) {
+            setTeamList(prev => prev.map(t => t.id === editingMember.id ? json.data : t));
+            setEditingMember(null);
+            alert("Team member updated successfully!");
+            return;
+          }
+        }
+        alert("Team member updated, but response format was unexpected.");
+      } else {
+        const errorMsg = await getErrorMessage(res, 'Failed to update team member');
+        alert(`Error: ${errorMsg}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(`Network / Connection Error: ${err.message || 'Failed to update team member'}`);
     }
   };
 
@@ -819,13 +878,22 @@ export default function AdminPage() {
                         <span className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-3">{member.position}</span>
                         <p className="text-xs text-gray-500 leading-relaxed">{member.description}</p>
                       </div>
-                      <button
-                         onClick={() => handleDeleteTeamMember(member.id)}
-                         className="absolute bottom-4 left-1/2 -translate-x-1/2 p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 transition-colors cursor-pointer"
-                         title="Delete team member"
-                      >
-                        <FiTrash2 size={13} />
-                      </button>
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
+                        <button
+                           onClick={() => handleEditClick(member)}
+                           className="p-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-100 transition-colors cursor-pointer"
+                           title="Edit team member"
+                        >
+                          <FiEdit size={13} />
+                        </button>
+                        <button
+                           onClick={() => handleDeleteTeamMember(member.id)}
+                           className="p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 transition-colors cursor-pointer"
+                           title="Delete team member"
+                        >
+                          <FiTrash2 size={13} />
+                        </button>
+                      </div>
                     </div>
                   ))}
                   {teamList.length === 0 && (
@@ -892,6 +960,112 @@ export default function AdminPage() {
                 >
                   Close Details
                 </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+
+        {editingMember && (
+          <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 cursor-pointer" onClick={() => setEditingMember(null)} />
+            <motion.div
+              className="bg-white p-6 md:p-8 rounded-3xl shadow-2xl max-w-xl w-full relative z-10 flex flex-col max-h-[90vh] sm:max-h-[85vh] overflow-hidden"
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            >
+              <div className="overflow-y-auto space-y-6 flex-grow pr-1 scrollbar-none pb-6 text-left">
+                <div>
+                  <span className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">
+                    Team Management
+                  </span>
+                  <h3 className="font-semibold text-xl text-gray-900">Edit Team Member</h3>
+                </div>
+
+                <form onSubmit={handleUpdateTeamMember} className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Full Name</label>
+                      <input
+                         type="text"
+                         required
+                         value={editMemberName}
+                         onChange={e => setEditMemberName(e.target.value)}
+                         placeholder="e.g. Shaun Naidoo"
+                         className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all text-gray-900"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Position / Role</label>
+                      <input
+                         type="text"
+                         required
+                         value={editMemberPosition}
+                         onChange={e => setEditMemberPosition(e.target.value)}
+                         placeholder="e.g. Co-Director & Project Manager"
+                         className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-950 focus:bg-white transition-all text-gray-900"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Brief Biography / Description</label>
+                    <textarea
+                       required
+                       value={editMemberDescription}
+                       onChange={e => setEditMemberDescription(e.target.value)}
+                       placeholder="Describe their role, experience..."
+                       rows={4}
+                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-950 focus:bg-white transition-all resize-none text-gray-900"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Profile Photo</label>
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-150 flex-shrink-0 bg-gray-50">
+                        {editMemberImage ? (
+                          <img src={editMemberImage} alt="Preview" className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-300 bg-gray-100">
+                            <FiUser size={24} />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-wrap gap-3 items-center flex-grow">
+                        <input
+                           type="file"
+                           accept="image/*"
+                           onChange={e => handleImageUpload(e, setEditMemberImage)}
+                           className="hidden"
+                           id="edit-team-image-file"
+                        />
+                        <label
+                           htmlFor="edit-team-image-file"
+                           className="px-4 py-2 rounded-xl border border-dashed border-gray-300 hover:border-gray-950 bg-gray-50 text-xs font-semibold text-gray-600 cursor-pointer transition-colors"
+                        >
+                          Change Photo
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 pt-4 border-t border-gray-100">
+                    <button
+                       type="button"
+                       className="flex-1 py-3 px-6 rounded-full font-semibold border border-gray-250 text-gray-600 bg-white hover:bg-gray-50 text-xs cursor-pointer transition-colors"
+                       onClick={() => setEditingMember(null)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                       type="submit"
+                       className="flex-1 py-3 px-6 rounded-full font-semibold bg-primary text-white hover:bg-primary-hover text-xs cursor-pointer shadow-xs transition-colors"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
               </div>
             </motion.div>
           </div>

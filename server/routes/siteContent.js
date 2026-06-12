@@ -395,4 +395,95 @@ router.delete('/team/:id', verifyAdmin, async (req, res) => {
   }
 });
 
+// PUT /api/team/:id - Update a team member (Admin Only)
+router.put('/team/:id', verifyAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, position, description, image } = req.body;
+
+    if (!name || !position || !description) {
+      return res.status(400).json({ success: false, error: 'Name, position, and description are required.' });
+    }
+
+    let savedImagePath = image;
+    // Only process upload if it's a new Base64 string
+    if (image && image.startsWith('data:image')) {
+      savedImagePath = await saveUploadedImage(image, 'team');
+    }
+
+    if (supabase) {
+      // 1. Get original image for cleanup if we uploaded a new one
+      let oldImage = null;
+      if (image && image.startsWith('data:image')) {
+        const { data: member } = await supabase
+          .from('team')
+          .select('image')
+          .eq('id', id)
+          .single();
+        if (member) oldImage = member.image;
+      }
+
+      // 2. Perform update
+      const updateData = {
+        name,
+        position,
+        description
+      };
+      if (savedImagePath) {
+        updateData.image = savedImagePath;
+      }
+
+      const { error } = await supabase
+        .from('team')
+        .update(updateData)
+        .eq('id', id);
+
+      if (error) throw error;
+
+      // 3. Clean up old image from storage if replaced
+      if (oldImage && oldImage.includes(supabaseBucket) && savedImagePath !== oldImage) {
+        try {
+          const urlParts = oldImage.split('/');
+          const filename = urlParts[urlParts.length - 1];
+          await supabase.storage.from(supabaseBucket).remove([filename]);
+        } catch (storageErr) {
+          console.error('Failed to clean up old image from Supabase Storage:', storageErr);
+        }
+      }
+
+      // Construct return data
+      const updatedMember = { id, ...updateData };
+      if (!updateData.image && oldImage) {
+        updatedMember.image = oldImage;
+      }
+      return res.json({ success: true, data: updatedMember });
+    }
+
+    // Local JSON Fallback
+    const teamList = readJSON(TEAM_FILE);
+    const memberIndex = teamList.findIndex(t => t.id === id);
+
+    if (memberIndex === -1) {
+      return res.status(404).json({ success: false, error: 'Team member not found.' });
+    }
+
+    const oldMember = teamList[memberIndex];
+    const updatedMember = {
+      ...oldMember,
+      name,
+      position,
+      description,
+      image: savedImagePath || oldMember.image
+    };
+
+    teamList[memberIndex] = updatedMember;
+    writeJSON(TEAM_FILE, teamList);
+
+    res.json({ success: true, data: updatedMember });
+  } catch (error) {
+    console.error('Error updating team member:', error);
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
+  }
+});
+
 export default router;
