@@ -172,8 +172,16 @@ export default function Footer() {
         {/* Bottom copyright details */}
         <div className="border-t border-gray-900 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-600">
           <p>&copy; {currentYear} RASC Trading (Pty) Ltd. All rights reserved.</p>
-          <p className="flex items-center gap-1">
-            Made with <span className="text-red-800">❤️</span> in South Africa
+          <p>
+            Designed by{' '}
+            <a
+              href="https://tktecnologies.co.za"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-400 transition-colors duration-200 underline"
+            >
+              TK technologies
+            </a>
           </p>
         </div>
       </motion.div>
