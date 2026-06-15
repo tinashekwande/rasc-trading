@@ -186,7 +186,7 @@ export default function ContactPage() {
               <div className="rounded-3xl border border-gray-100 overflow-hidden shadow-sm aspect-video relative">
                 <iframe
                   title="RASC Trading Location Map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580000!2d28.0473!3d-26.2041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950c68f0406a51%3A0x238ac9d9b1d34041!2sJohannesburg%2C%20South%20Africa!5e0!3m2!1sen!2s!4v1700000000000"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3308.261821817112!2d18.4240553!3d-33.9248685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc500f40000001%3A0xf4ec05309b4926a3!2sCape%20Town%2C%20South%20Africa!5e0!3m2!1sen!2s!4v1700000000000"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

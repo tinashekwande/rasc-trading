@@ -861,7 +861,7 @@ export const companyInfo = {
   phone: '083 318 6161',
   email: 'info@rasctrading.co.za',
   nhbrc: '#4000019695',
-  location: 'South Africa',
+  location: 'Cape Town, South Africa',
   tagline: 'Building Excellence, Transforming Spaces',
   description:
     'With over 35 years of construction expertise, RASC Trading delivers premium building, renovation, and fit-out services across South Africa. NHBRC certified and committed to excellence.',
