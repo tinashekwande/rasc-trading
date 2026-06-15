@@ -169,9 +169,8 @@ export default function HeroSection() {
                 {/* Dark Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/35 z-10 rounded-3xl" />
               </div>
-
               {/* Overlaid Card Interior */}
-              <div className="relative z-20 flex flex-col h-full justify-between w-full">
+              <div className="relative z-20 flex flex-col justify-between w-full flex-grow">
                 <div>
                   {/* Category tags */}
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -199,47 +198,15 @@ export default function HeroSection() {
                   </div>
                 </div>
 
-                <div>
-                  {/* Specs Grid */}
-                  <div className="grid grid-cols-3 gap-3 mb-6">
-                    <div className="text-center p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/10">
-                      <div className="flex items-center justify-center gap-1 text-xs font-bold text-white mb-0.5">
-                        <FiMaximize className="text-white/80" />
-                        {specs.size}
-                      </div>
-                      <p className="text-[10px] text-white/60 uppercase font-semibold">{specs.unit}</p>
-                    </div>
-                    <div className="text-center p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/10">
-                      <div className="flex items-center justify-center gap-1 text-xs font-bold text-white mb-0.5">
-                        <FiLayers className="text-white/80" />
-                        {specs.detail.split(' ')[0]}
-                      </div>
-                      <p className="text-[10px] text-white/60 uppercase font-semibold">
-                        {specs.detail.split(' ').slice(1).join(' ')}
-                      </p>
-                    </div>
-                    <div className="text-center p-3 rounded-xl bg-green-500/20 backdrop-blur-md border border-green-500/20">
-                      <div className="flex items-center justify-center gap-1 text-[11px] font-bold text-green-300 mb-0.5">
-                        <FiShield className="text-green-300" />
-                        {specs.rating.split(' ')[0]}
-                      </div>
-                      <p className="text-[10px] text-green-300 uppercase font-semibold">
-                        {specs.rating.split(' ').slice(1).join(' ') || 'Certified'}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* View details button */}
-                  <Link
-                    to="/projects"
-                    className="block text-center w-full py-3 px-4 rounded-xl bg-primary text-white font-medium text-sm transition-all duration-200 hover:bg-primary-hover hover:shadow-md"
-                  >
-                    View Project Details
-                  </Link>
-                </div>
+                {/* View details button */}
+                <Link
+                  to="/projects"
+                  className="block text-center w-full py-3 px-4 rounded-xl bg-primary text-white font-medium text-sm transition-all duration-200 hover:bg-primary-hover hover:shadow-md mt-auto"
+                >
+                  View Project Details
+                </Link>
               </div>
             </div>
-
 
             {/* Bounce element background */}
             <div className="absolute top-1/2 -left-6 w-5 h-5 bg-gradient-to-br from-green-200 to-green-300 rounded-full animate-bounce opacity-70 pointer-events-none hidden sm:block" />
