@@ -6,53 +6,74 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiPlay, FiCalendar, FiMaximize, FiLayers, FiCompass, FiShield, FiHeart } from 'react-icons/fi';
+import { projects } from '../data/siteData';
 
 export default function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showcaseProjects, setShowcaseProjects] = useState(projects);
 
-  // Dynamic projects database for the sliding showcase card
-  const showcaseProjects = [
-    {
-      image: '/images/hero-showcase.png',
-      title: 'Meridian Residence',
-      category: 'Residential',
-      specs: { size: '4,200', unit: 'sq ft', detail: '4 Bedrooms', rating: 'LEED Certified' }
-    },
-    {
-      image: '/images/projects/project-1.jpg',
-      title: 'Azure Coast Villa',
-      category: 'Coastal',
-      specs: { size: '6,800', unit: 'sq ft', detail: '5 Bedrooms', rating: 'Premium Stone' }
-    },
-    {
-      image: '/images/projects/project-3.jpg',
-      title: 'Urban Office Fit-Out',
-      category: 'Commercial',
-      specs: { size: '12,500', unit: 'sq ft', detail: 'Glass Boardrooms', rating: 'White Boxed' }
-    },
-    {
-      image: '/images/projects/project-4.jpg',
-      title: 'Sleek Loft Addition',
-      category: 'Renovation',
-      specs: { size: '2,800', unit: 'sq ft', detail: 'White Oak Joinery', rating: 'Modern Style' }
-    },
-    {
-      image: '/images/projects/project-5.jpg',
-      title: 'Structural Steel Roof',
-      category: 'Infrastructure',
-      specs: { size: '3,100', unit: 'sq ft', detail: 'Structural Steel', rating: 'NHBRC Certified' }
-    }
-  ];
+  // Fetch projects from the gallery API
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch('/api/projects');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data && json.data.length > 0) {
+            setShowcaseProjects(json.data);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch hero projects:', err);
+      }
+    };
+    fetchProjects();
+  }, []);
 
   // Auto sliding every 4 seconds
   useEffect(() => {
+    if (showcaseProjects.length === 0) return;
     const timer = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % showcaseProjects.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [showcaseProjects.length]);
 
-  const activeProject = showcaseProjects[currentImageIndex];
+  const activeProject = showcaseProjects[currentImageIndex % showcaseProjects.length] || null;
+
+  const getProjectSpecs = (project) => {
+    if (!project) return { size: '3,000', unit: 'sq ft', detail: '3 Bedrooms', rating: 'Certified' };
+    if (project.specs) return project.specs;
+    
+    const id = project.id || 1;
+    const categoryLower = project.category?.toLowerCase() || '';
+    
+    if (categoryLower.includes('commercial')) {
+      return {
+        size: `${((id * 1500) % 8000) + 4000}`,
+        unit: 'sq ft',
+        detail: 'Office Spaces',
+        rating: 'Premium Spec'
+      };
+    } else if (categoryLower.includes('renovation')) {
+      return {
+        size: `${((id * 800) % 2500) + 1200}`,
+        unit: 'sq ft',
+        detail: 'Bespoke Fit',
+        rating: 'Modern Style'
+      };
+    } else {
+      // Residential / default
+      return {
+        size: `${((id * 1000) % 3500) + 2000}`,
+        unit: 'sq ft',
+        detail: `${(id % 3) + 3} Bedrooms`,
+        rating: 'NHBRC Certified'
+      };
+    }
+  };
+
+  const specs = getProjectSpecs(activeProject);
 
   return (
     <section className="relative overflow-hidden pt-28 min-h-screen flex items-center bg-transparent">
@@ -130,104 +151,95 @@ export default function HeroSection() {
         >
           <div className="relative w-full max-w-[420px] lg:max-w-none">
             {/* Main Project Card */}
-            <div className="relative rounded-3xl shadow-xl p-6 md:p-8 gradient-border bg-white floating">
-              {/* Category tags */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gray-50 border border-gray-100 text-gray-700">
-                  {activeProject.category}
-                </span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-50 border border-green-100 text-green-700">
-                  Sustainable
-                </span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary text-white">
-                  Featured
-                </span>
-              </div>
-
-              {/* Title & Stats */}
-              <div className="flex items-start justify-between mb-6">
-                <div>
-                  <h3 className="text-2xl font-semibold tracking-tight text-gray-900 mb-1">
-                    {activeProject.title}
-                  </h3>
-                  <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">
-                    High-End Construction Scope
-                  </p>
-                </div>
-              </div>
-
-              {/* Sliding Image Frame */}
-              <div className="rounded-2xl overflow-hidden mb-6 aspect-video bg-gray-50 relative border border-gray-100">
+            <div className="relative rounded-3xl shadow-xl p-6 md:p-8 gradient-border overflow-hidden floating min-h-[480px] flex flex-col justify-between">
+              {/* Sliding Image Background */}
+              <div className="absolute inset-0 z-0 rounded-3xl overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={currentImageIndex}
                     src={activeProject.image}
                     alt={activeProject.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-3xl"
                     initial={{ opacity: 0, scale: 1.05 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.6 }}
                   />
                 </AnimatePresence>
+                {/* Dark Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/35 z-10 rounded-3xl" />
               </div>
 
-              {/* Specs Grid */}
-              <div className="grid grid-cols-3 gap-3 mb-6">
-                <div className="text-center p-3 rounded-xl bg-gray-50 border border-gray-100/50">
-                  <div className="flex items-center justify-center gap-1 text-xs font-bold text-gray-900 mb-0.5">
-                    <FiMaximize className="text-gray-500" />
-                    {activeProject.specs.size}
+              {/* Overlaid Card Interior */}
+              <div className="relative z-20 flex flex-col h-full justify-between w-full">
+                <div>
+                  {/* Category tags */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md border border-white/10 text-white">
+                      {activeProject.category}
+                    </span>
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 border border-green-500/20 text-green-300">
+                      Sustainable
+                    </span>
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary text-white">
+                      Featured
+                    </span>
                   </div>
-                  <p className="text-[10px] text-gray-500 uppercase font-semibold">{activeProject.specs.unit}</p>
-                </div>
-                <div className="text-center p-3 rounded-xl bg-gray-50 border border-gray-100/50">
-                  <div className="flex items-center justify-center gap-1 text-xs font-bold text-gray-900 mb-0.5">
-                    <FiLayers className="text-gray-500" />
-                    {activeProject.specs.detail.split(' ')[0]}
-                  </div>
-                  <p className="text-[10px] text-gray-500 uppercase font-semibold">
-                    {activeProject.specs.detail.split(' ').slice(1).join(' ')}
-                  </p>
-                </div>
-                <div className="text-center p-3 rounded-xl bg-green-50 border border-green-100/30">
-                  <div className="flex items-center justify-center gap-1 text-[11px] font-bold text-green-700 mb-0.5">
-                    <FiShield className="text-green-600" />
-                    LEED
-                  </div>
-                  <p className="text-[10px] text-green-600 uppercase font-semibold">Certified</p>
-                </div>
-              </div>
 
-              {/* View details button */}
-              <Link
-                to="/projects"
-                className="block text-center w-full py-3 px-4 rounded-xl bg-primary text-white font-medium text-sm transition-all duration-200 hover:bg-primary-hover hover:shadow-md"
-              >
-                View Project Details
-              </Link>
-            </div>
-
-            {/* Floating 360 Tour widget */}
-            <div className="absolute -top-6 -right-4 w-36 md:w-40 animate-slide-up animate-delay-300 z-10 hidden sm:block">
-              <div className="rounded-2xl border shadow-lg overflow-hidden bg-white border-gray-100">
-                <div className="text-center text-[9px] font-bold py-2.5 tracking-wider bg-gray-50 text-gray-600 border-b border-gray-100">
-                  360&deg; VIRTUAL VIEW
-                </div>
-                <div className="relative h-20 bg-gray-100">
-                  <img
-                    src="/images/projects/project-3.jpg"
-                    alt="RASC Trading 360 degree virtual construction project site walkthrough tour"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
-                    <div className="h-9 w-9 rounded-full flex items-center justify-center shadow-md bg-white text-gray-900">
-                      <FiPlay size={14} className="ml-0.5" />
+                  {/* Title & Stats */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div>
+                      <h3 className="text-2xl font-semibold tracking-tight text-white mb-1">
+                        {activeProject.title}
+                      </h3>
+                      <p className="text-xs text-white/70 font-medium uppercase tracking-wider">
+                        High-End Construction Scope
+                      </p>
                     </div>
                   </div>
                 </div>
+
+                <div>
+                  {/* Specs Grid */}
+                  <div className="grid grid-cols-3 gap-3 mb-6">
+                    <div className="text-center p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/10">
+                      <div className="flex items-center justify-center gap-1 text-xs font-bold text-white mb-0.5">
+                        <FiMaximize className="text-white/80" />
+                        {specs.size}
+                      </div>
+                      <p className="text-[10px] text-white/60 uppercase font-semibold">{specs.unit}</p>
+                    </div>
+                    <div className="text-center p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/10">
+                      <div className="flex items-center justify-center gap-1 text-xs font-bold text-white mb-0.5">
+                        <FiLayers className="text-white/80" />
+                        {specs.detail.split(' ')[0]}
+                      </div>
+                      <p className="text-[10px] text-white/60 uppercase font-semibold">
+                        {specs.detail.split(' ').slice(1).join(' ')}
+                      </p>
+                    </div>
+                    <div className="text-center p-3 rounded-xl bg-green-500/20 backdrop-blur-md border border-green-500/20">
+                      <div className="flex items-center justify-center gap-1 text-[11px] font-bold text-green-300 mb-0.5">
+                        <FiShield className="text-green-300" />
+                        {specs.rating.split(' ')[0]}
+                      </div>
+                      <p className="text-[10px] text-green-300 uppercase font-semibold">
+                        {specs.rating.split(' ').slice(1).join(' ') || 'Certified'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* View details button */}
+                  <Link
+                    to="/projects"
+                    className="block text-center w-full py-3 px-4 rounded-xl bg-primary text-white font-medium text-sm transition-all duration-200 hover:bg-primary-hover hover:shadow-md"
+                  >
+                    View Project Details
+                  </Link>
+                </div>
               </div>
             </div>
+
 
             {/* Bounce element background */}
             <div className="absolute top-1/2 -left-6 w-5 h-5 bg-gradient-to-br from-green-200 to-green-300 rounded-full animate-bounce opacity-70 pointer-events-none hidden sm:block" />

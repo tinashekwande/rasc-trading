@@ -141,77 +141,605 @@ export const services = [
 // ============================================
 export const projects = [
   {
-    id: 1,
-    title: 'Modern Residence',
-    category: 'Residential',
-    image: '/images/projects/project-1.jpg',
+    "id": "proj-1781187441316",
+    "title": "Grand line",
+    "category": "Residential",
+    "image": "/images/uploads/project-1781187441311.jpg"
   },
   {
-    id: 2,
-    title: 'Office Complex Renovation',
-    category: 'Commercial',
-    image: '/images/projects/project-2.jpg',
+    "id": "proj-1",
+    "title": "Modern Residence",
+    "category": "Residential",
+    "image": "/images/projects/project-1.jpg"
   },
   {
-    id: 3,
-    title: 'Luxury Kitchen Remodel',
-    category: 'Renovation',
-    image: '/images/projects/project-3.jpg',
+    "id": "proj-2",
+    "title": "Office Complex Renovation",
+    "category": "Commercial",
+    "image": "/images/projects/project-2.jpg"
   },
   {
-    id: 4,
-    title: 'Retail Store Fit-Out',
-    category: 'Commercial',
-    image: '/images/projects/project-4.jpg',
+    "id": "proj-3",
+    "title": "Luxury Kitchen Remodel",
+    "category": "Renovation",
+    "image": "/images/projects/project-3.jpg"
   },
   {
-    id: 5,
-    title: 'Contemporary Townhouse',
-    category: 'Residential',
-    image: '/images/projects/project-5.jpg',
+    "id": "proj-4",
+    "title": "Retail Store Fit-Out",
+    "category": "Commercial",
+    "image": "/images/projects/project-4.jpg"
   },
   {
-    id: 6,
-    title: 'Industrial Warehouse Conversion',
-    category: 'Commercial',
-    image: '/images/projects/project-6.jpg',
+    "id": "proj-5",
+    "title": "Contemporary Townhouse",
+    "category": "Residential",
+    "image": "/images/projects/project-5.jpg"
   },
   {
-    id: 7,
-    title: 'Family Home Extension',
-    category: 'Residential',
-    image: '/images/projects/project-7.jpg',
+    "id": "proj-6",
+    "title": "Industrial Warehouse Conversion",
+    "category": "Commercial",
+    "image": "/images/projects/project-6.jpg"
   },
   {
-    id: 8,
-    title: 'Restaurant Interior',
-    category: 'Commercial',
-    image: '/images/projects/project-8.jpg',
+    "id": "proj-7",
+    "title": "Family Home Extension",
+    "category": "Residential",
+    "image": "/images/projects/project-7.jpg"
   },
   {
-    id: 9,
-    title: 'Nutec Housing Development',
-    category: 'Residential',
-    image: '/images/projects/project-9.jpg',
+    "id": "proj-8",
+    "title": "Restaurant Interior",
+    "category": "Commercial",
+    "image": "/images/projects/project-8.jpg"
   },
   {
-    id: 10,
-    title: 'Corporate Office White-Box',
-    category: 'Commercial',
-    image: '/images/projects/project-10.jpg',
+    "id": "proj-9",
+    "title": "Nutec Housing Development",
+    "category": "Residential",
+    "image": "/images/projects/project-9.jpg"
   },
   {
-    id: 11,
-    title: 'Bathroom & Tiling Renovation',
-    category: 'Renovation',
-    image: '/images/projects/project-11.jpg',
+    "id": "proj-10",
+    "title": "Corporate Office White-Box",
+    "category": "Commercial",
+    "image": "/images/projects/project-10.jpg"
   },
   {
-    id: 12,
-    title: 'Multi-Unit Residential Complex',
-    category: 'Residential',
-    image: '/images/projects/project-12.jpg',
+    "id": "proj-11",
+    "title": "Bathroom & Tiling Renovation",
+    "category": "Renovation",
+    "image": "/images/projects/project-11.jpg"
   },
+  {
+    "id": "proj-12",
+    "title": "Multi-Unit Residential Complex",
+    "category": "Residential",
+    "image": "/images/projects/project-12.jpg"
+  },
+  {
+    "id": "proj-imported-1",
+    "title": "Bespoke Renovation Work 1",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-1.jpg"
+  },
+  {
+    "id": "proj-imported-2",
+    "title": "Commercial Refurbishment 1",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-2.jpg"
+  },
+  {
+    "id": "proj-imported-3",
+    "title": "Premium Residential Build 1",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-3.jpg"
+  },
+  {
+    "id": "proj-imported-4",
+    "title": "Commercial Refurbishment 2",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-4.jpg"
+  },
+  {
+    "id": "proj-imported-5",
+    "title": "Bespoke Renovation Work 2",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-5.jpg"
+  },
+  {
+    "id": "proj-imported-6",
+    "title": "Bespoke Renovation Work 3",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-6.jpg"
+  },
+  {
+    "id": "proj-imported-7",
+    "title": "Commercial Refurbishment 3",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-7.jpg"
+  },
+  {
+    "id": "proj-imported-8",
+    "title": "Bespoke Renovation Work 4",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-8.jpg"
+  },
+  {
+    "id": "proj-imported-9",
+    "title": "Premium Residential Build 2",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-9.jpg"
+  },
+  {
+    "id": "proj-imported-10",
+    "title": "Commercial Refurbishment 4",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-10.jpg"
+  },
+  {
+    "id": "proj-imported-11",
+    "title": "Commercial Refurbishment 5",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-11.jpg"
+  },
+  {
+    "id": "proj-imported-12",
+    "title": "Commercial Refurbishment 6",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-12.jpg"
+  },
+  {
+    "id": "proj-imported-13",
+    "title": "Bespoke Renovation Work 5",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-13.jpg"
+  },
+  {
+    "id": "proj-imported-14",
+    "title": "Premium Residential Build 3",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-14.jpg"
+  },
+  {
+    "id": "proj-imported-15",
+    "title": "Commercial Refurbishment 7",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-15.jpg"
+  },
+  {
+    "id": "proj-imported-16",
+    "title": "Commercial Refurbishment 8",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-16.jpg"
+  },
+  {
+    "id": "proj-imported-17",
+    "title": "Premium Residential Build 4",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-17.jpg"
+  },
+  {
+    "id": "proj-imported-18",
+    "title": "Premium Residential Build 5",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-18.jpg"
+  },
+  {
+    "id": "proj-imported-19",
+    "title": "Commercial Refurbishment 9",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-19.jpg"
+  },
+  {
+    "id": "proj-imported-20",
+    "title": "Premium Residential Build 6",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-20.jpg"
+  },
+  {
+    "id": "proj-imported-21",
+    "title": "Premium Residential Build 7",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-21.jpg"
+  },
+  {
+    "id": "proj-imported-22",
+    "title": "Premium Residential Build 8",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-22.jpg"
+  },
+  {
+    "id": "proj-imported-23",
+    "title": "Bespoke Renovation Work 6",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-23.jpg"
+  },
+  {
+    "id": "proj-imported-24",
+    "title": "Premium Residential Build 9",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-24.jpg"
+  },
+  {
+    "id": "proj-imported-25",
+    "title": "Bespoke Renovation Work 7",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-25.jpg"
+  },
+  {
+    "id": "proj-imported-26",
+    "title": "Bespoke Renovation Work 8",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-26.jpg"
+  },
+  {
+    "id": "proj-imported-27",
+    "title": "Premium Residential Build 10",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-27.jpg"
+  },
+  {
+    "id": "proj-imported-28",
+    "title": "Commercial Refurbishment 10",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-28.jpg"
+  },
+  {
+    "id": "proj-imported-29",
+    "title": "Premium Residential Build 11",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-29.jpg"
+  },
+  {
+    "id": "proj-imported-30",
+    "title": "Premium Residential Build 12",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-30.jpg"
+  },
+  {
+    "id": "proj-imported-31",
+    "title": "Bespoke Renovation Work 9",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-31.jpg"
+  },
+  {
+    "id": "proj-imported-32",
+    "title": "Commercial Refurbishment 11",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-32.jpg"
+  },
+  {
+    "id": "proj-imported-33",
+    "title": "Premium Residential Build 13",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-33.jpg"
+  },
+  {
+    "id": "proj-imported-34",
+    "title": "Commercial Refurbishment 12",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-34.jpg"
+  },
+  {
+    "id": "proj-imported-35",
+    "title": "Commercial Refurbishment 13",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-35.jpg"
+  },
+  {
+    "id": "proj-imported-36",
+    "title": "Premium Residential Build 14",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-36.jpg"
+  },
+  {
+    "id": "proj-imported-37",
+    "title": "Premium Residential Build 15",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-37.jpg"
+  },
+  {
+    "id": "proj-imported-38",
+    "title": "Bespoke Renovation Work 10",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-38.jpg"
+  },
+  {
+    "id": "proj-imported-39",
+    "title": "Bespoke Renovation Work 11",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-39.jpg"
+  },
+  {
+    "id": "proj-imported-40",
+    "title": "Premium Residential Build 16",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-40.jpg"
+  },
+  {
+    "id": "proj-imported-41",
+    "title": "Premium Residential Build 17",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-41.jpg"
+  },
+  {
+    "id": "proj-imported-42",
+    "title": "Commercial Refurbishment 14",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-42.jpg"
+  },
+  {
+    "id": "proj-imported-43",
+    "title": "Premium Residential Build 18",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-43.jpg"
+  },
+  {
+    "id": "proj-imported-44",
+    "title": "Commercial Refurbishment 15",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-44.jpg"
+  },
+  {
+    "id": "proj-imported-45",
+    "title": "Bespoke Renovation Work 12",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-45.jpg"
+  },
+  {
+    "id": "proj-imported-46",
+    "title": "Commercial Refurbishment 16",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-46.jpg"
+  },
+  {
+    "id": "proj-imported-47",
+    "title": "Premium Residential Build 19",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-47.jpg"
+  },
+  {
+    "id": "proj-imported-48",
+    "title": "Bespoke Renovation Work 13",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-48.jpg"
+  },
+  {
+    "id": "proj-imported-49",
+    "title": "Bespoke Renovation Work 14",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-49.jpg"
+  },
+  {
+    "id": "proj-imported-50",
+    "title": "Premium Residential Build 20",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-50.jpg"
+  },
+  {
+    "id": "proj-imported-51",
+    "title": "Premium Residential Build 21",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-51.jpg"
+  },
+  {
+    "id": "proj-imported-52",
+    "title": "Commercial Refurbishment 17",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-52.jpg"
+  },
+  {
+    "id": "proj-imported-53",
+    "title": "Bespoke Renovation Work 15",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-53.jpg"
+  },
+  {
+    "id": "proj-imported-54",
+    "title": "Bespoke Renovation Work 16",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-54.jpg"
+  },
+  {
+    "id": "proj-imported-55",
+    "title": "Bespoke Renovation Work 17",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-55.jpg"
+  },
+  {
+    "id": "proj-imported-56",
+    "title": "Bespoke Renovation Work 18",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-56.jpg"
+  },
+  {
+    "id": "proj-imported-57",
+    "title": "Services Fitment & Renovation 19",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-57.jpg"
+  },
+  {
+    "id": "proj-imported-58",
+    "title": "Residential Structure Phase 22",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-58.jpg"
+  },
+  {
+    "id": "proj-imported-59",
+    "title": "Ceilings & Partitioning 20",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-59.jpg"
+  },
+  {
+    "id": "proj-imported-60",
+    "title": "Commercial Office Fit-Out 18",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-60.jpg"
+  },
+  {
+    "id": "proj-imported-61",
+    "title": "Services Fitment & Renovation 21",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-61.jpg"
+  },
+  {
+    "id": "proj-imported-62",
+    "title": "Durable Flooring Work 22",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-62.jpg"
+  },
+  {
+    "id": "proj-imported-63",
+    "title": "Premium Painting Finish 23",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-63.jpg"
+  },
+  {
+    "id": "proj-imported-64",
+    "title": "Premium Painting Finish 24",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-64.jpg"
+  },
+  {
+    "id": "proj-imported-65",
+    "title": "Services Fitment & Renovation 25",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-65.jpg"
+  },
+  {
+    "id": "proj-imported-66",
+    "title": "Bespoke Renovation Work 26",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-66.jpg"
+  },
+  {
+    "id": "proj-imported-67",
+    "title": "Premium Residential Build 23",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-67.jpg"
+  },
+  {
+    "id": "proj-imported-68",
+    "title": "Roof Construction Project 24",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-68.jpg"
+  },
+  {
+    "id": "proj-imported-69",
+    "title": "Bespoke Tiling Install 27",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-69.jpg"
+  },
+  {
+    "id": "proj-imported-70",
+    "title": "Premium Residential Build 25",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-70.jpeg"
+  },
+  {
+    "id": "proj-imported-71",
+    "title": "Commercial Refurbishment 19",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-71.jpeg"
+  },
+  {
+    "id": "proj-imported-72",
+    "title": "Bespoke Renovation Work 28",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-72.jpeg"
+  },
+  {
+    "id": "proj-imported-73",
+    "title": "Commercial Refurbishment 20",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-73.jpeg"
+  },
+  {
+    "id": "proj-imported-74",
+    "title": "Bespoke Renovation Work 29",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-74.jpeg"
+  },
+  {
+    "id": "proj-imported-75",
+    "title": "Premium Residential Build 26",
+    "category": "Residential",
+    "image": "/images/projects/imported-residential-75.jpeg"
+  },
+  {
+    "id": "proj-imported-76",
+    "title": "Bespoke Renovation Work 30",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-76.jpeg"
+  },
+  {
+    "id": "proj-imported-77",
+    "title": "Commercial Refurbishment 21",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-77.jpeg"
+  },
+  {
+    "id": "proj-imported-78",
+    "title": "Bespoke Renovation Work 31",
+    "category": "Renovation",
+    "image": "/images/projects/imported-renovation-78.jpeg"
+  },
+  {
+    "id": "proj-imported-79",
+    "title": "Commercial White Boxing Phase 22",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-79.jpg"
+  },
+  {
+    "id": "proj-imported-80",
+    "title": "Commercial White Boxing Phase 23",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-80.jpg"
+  },
+  {
+    "id": "proj-imported-81",
+    "title": "Commercial White Boxing Phase 24",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-81.jpg"
+  },
+  {
+    "id": "proj-imported-82",
+    "title": "Commercial White Boxing Phase 25",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-82.jpg"
+  },
+  {
+    "id": "proj-imported-83",
+    "title": "Commercial White Boxing Phase 26",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-83.jpg"
+  },
+  {
+    "id": "proj-imported-84",
+    "title": "Commercial White Boxing Phase 27",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-84.jpg"
+  },
+  {
+    "id": "proj-imported-85",
+    "title": "Commercial White Boxing Phase 28",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-85.jpg"
+  },
+  {
+    "id": "proj-imported-86",
+    "title": "Commercial White Boxing Phase 29",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-86.jpg"
+  },
+  {
+    "id": "proj-imported-87",
+    "title": "Commercial White Boxing Phase 30",
+    "category": "Commercial",
+    "image": "/images/projects/imported-commercial-87.jpg"
+  }
 ];
 
 

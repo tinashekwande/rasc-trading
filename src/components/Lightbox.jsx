@@ -82,23 +82,34 @@ export default function Lightbox({
 
           {/* Centered Image Card */}
           <motion.div
-            className="relative max-w-[90vw] max-h-[80vh] md:max-h-[85vh] cursor-default rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-gray-950 flex flex-col justify-center"
+            className="relative max-w-[90vw] max-h-[80vh] md:max-h-[85vh] cursor-grab active:cursor-grabbing rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-gray-950 flex flex-col justify-center select-none touch-none"
             onClick={(e) => e.stopPropagation()}
             key={currentIndex}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.6}
+            onDragEnd={(event, info) => {
+              const swipeThreshold = 50;
+              if (info.offset.x < -swipeThreshold) {
+                handleNext();
+              } else if (info.offset.x > swipeThreshold) {
+                handlePrev();
+              }
+            }}
           >
             <img
               src={currentImage.src || currentImage.image || currentImage}
               alt={currentImage.alt || currentImage.title || `Image ${currentIndex + 1}`}
-              className="max-w-full max-h-[80vh] md:max-h-[85vh] object-contain rounded-3xl"
+              className="max-w-full max-h-[80vh] md:max-h-[85vh] object-contain rounded-3xl pointer-events-none"
             />
 
             {/* Title & category details overlay */}
             {currentImage.title && (
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/85 via-black/45 to-transparent rounded-b-3xl text-left">
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/85 via-black/45 to-transparent rounded-b-3xl text-left pointer-events-none">
                 {currentImage.category && (
                   <span className="text-[10px] font-bold text-yellow-500 uppercase tracking-widest block mb-1">
                     {currentImage.category}
