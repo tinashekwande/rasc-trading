@@ -45,6 +45,8 @@ export default function Navbar() {
               <img
                 src="/images/brand/logo.png"
                 alt="RASC Trading Logo"
+                width={40}
+                height={40}
                 className="h-10 w-auto object-contain animate-heartbeat"
               />
               <span className="font-semibold text-lg tracking-tight text-gray-900">

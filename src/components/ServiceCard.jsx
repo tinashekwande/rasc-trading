@@ -3,6 +3,7 @@
 // ============================================
 
 import { motion } from 'framer-motion';
+import OptimizedImage from './OptimizedImage';
 
 export default function ServiceCard({ service, index = 0, onClick }) {
   const Icon = service.icon;
@@ -18,11 +19,12 @@ export default function ServiceCard({ service, index = 0, onClick }) {
       onClick={onClick}
     >
       {/* Full-width Image Background */}
-      <img
+      <OptimizedImage
         src={service.image}
         alt={service.title}
+        width={400}
+        height={500}
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 rounded-3xl"
-        loading="lazy"
       />
       
       {/* Dark Gradient Overlay for Text Readability */}

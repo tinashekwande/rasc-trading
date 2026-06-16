@@ -106,11 +106,12 @@ export default function ContactForm() {
             placeholder="083 000 0000"
           />
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+            <label htmlFor="service" className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
               Service Needed
             </label>
             <div className="relative">
               <select
+                id="service"
                 name="service"
                 value={form.service}
                 onChange={handleChange}
@@ -134,10 +135,11 @@ export default function ContactForm() {
 
         {/* Message */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+          <label htmlFor="message" className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
             Message
           </label>
           <textarea
+            id="message"
             name="message"
             value={form.message}
             onChange={handleChange}
@@ -201,10 +203,11 @@ export default function ContactForm() {
 function FormField({ label, name, type = 'text', value, onChange, error, placeholder }) {
   return (
     <div className="flex flex-col gap-1.5 w-full">
-      <label className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+      <label htmlFor={name} className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
         {label}
       </label>
       <input
+        id={name}
         type={type}
         name={name}
         value={value}

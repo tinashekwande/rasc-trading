@@ -3,6 +3,7 @@
 // ============================================
 
 import { FiMaximize } from 'react-icons/fi';
+import OptimizedImage from './OptimizedImage';
 
 export default function ProjectCard({ project, onClick }) {
   return (
@@ -11,11 +12,12 @@ export default function ProjectCard({ project, onClick }) {
       className="group relative overflow-hidden rounded-3xl aspect-[4/5] w-full cursor-pointer shadow-sm hover:shadow-xl border border-gray-100/10 transition-all duration-500 flex flex-col justify-end h-full"
     >
       {/* Full-width Image Background */}
-      <img
+      <OptimizedImage
         src={project.image}
         alt={project.title}
+        width={400}
+        height={500}
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 rounded-3xl"
-        loading="lazy"
       />
       
       {/* Dark Gradient Overlay for Text Readability */}

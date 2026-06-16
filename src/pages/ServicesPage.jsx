@@ -8,6 +8,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiCheckCircle, FiPhone, FiArrowRight } from 'react-icons/fi';
 
 import ServiceCard from '../components/ServiceCard';
+import SEO from '../components/SEO';
+import Breadcrumb from '../components/Breadcrumb';
+import OptimizedImage from '../components/OptimizedImage';
 import { services, companyInfo } from '../data/siteData';
 
 const pageVariants = {
@@ -25,6 +28,31 @@ export default function ServicesPage() {
     return () => { document.body.style.overflow = ''; };
   }, [selectedService]);
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rasctrading.co.za/" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://rasctrading.co.za/services" }
+    ]
+  };
+
+  const serviceSchema = selectedService ? {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": selectedService.title,
+    "description": selectedService.description,
+    "provider": {
+      "@type": "HomeAndConstructionBusiness",
+      "name": "RASC Trading (Pty) Ltd",
+      "url": "https://rasctrading.co.za"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "South Africa"
+    }
+  } : null;
+
   return (
     <motion.div
       variants={pageVariants}
@@ -33,6 +61,12 @@ export default function ServicesPage() {
       exit="exit"
       className="bg-transparent min-h-screen pt-20"
     >
+      <SEO
+        title="Bespoke Construction Services, Ceilings & Plumbing"
+        description="Complete construction services including home alterations, turnkey office fit-outs, suspended ceilings, partition walls, plumbing alterations, waterproofing, and structural roofing."
+        canonical="/services"
+        structuredData={[breadcrumbSchema, serviceSchema].filter(Boolean)}
+      />
       {/* ── Page Hero ── */}
       <section className="relative h-[320px] md:h-[400px] flex items-center justify-center overflow-hidden bg-gray-950 text-white">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40" style={{ backgroundImage: 'url(/images/projects/project-3.jpg)' }} />
@@ -46,16 +80,13 @@ export default function ServicesPage() {
           >
             Our Services
           </motion.h1>
-          <motion.nav
-            className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-gray-400"
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <span className="text-gray-600">/</span>
-            <span>Services</span>
-          </motion.nav>
+            <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }]} />
+          </motion.div>
         </div>
       </section>
 
@@ -119,10 +150,13 @@ export default function ServicesPage() {
 
               {/* Image Frame */}
               <div className="relative aspect-[21/9] bg-gray-50 border-b border-gray-100 overflow-hidden">
-                <img
+                <OptimizedImage
                   src={selectedService.image}
                   alt={selectedService.title}
+                  width={840}
+                  height={360}
                   className="w-full h-full object-cover"
+                  priority={true}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>

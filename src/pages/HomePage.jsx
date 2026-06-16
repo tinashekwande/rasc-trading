@@ -17,6 +17,7 @@ import TestimonialCarousel from '../components/TestimonialCarousel';
 import ClientLogos from '../components/ClientLogos';
 import ContactForm from '../components/ContactForm';
 import Lightbox from '../components/Lightbox';
+import SEO from '../components/SEO';
 
 // Data
 import { services, projects, companyInfo } from '../data/siteData';
@@ -73,6 +74,76 @@ export default function HomePage() {
       exit="exit"
       className="bg-transparent min-h-screen"
     >
+      <SEO
+        title="Premium Construction, Roofing & Renovations South Africa"
+        description="NHBRC registered home builders and commercial contractors in South Africa. Over 35 years of experience in structural construction, roof installations, building alterations, and office white boxing."
+        canonical="/"
+        structuredData={[
+          {
+            "@context": "https://schema.org",
+            "@type": "HomeAndConstructionBusiness",
+            "name": "RASC Trading (Pty) Ltd",
+            "alternateName": "Rocky and Son's Construction",
+            "image": "https://rasctrading.co.za/images/brand/logo.png",
+            "@id": "https://rasctrading.co.za/#organization",
+            "url": "https://rasctrading.co.za",
+            "telephone": "+27833186161",
+            "priceRange": "$$$",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "South Africa",
+              "addressLocality": "Durban",
+              "addressRegion": "KwaZulu-Natal",
+              "addressCountry": "ZA"
+            },
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday"
+                ],
+                "opens": "07:00",
+                "closes": "17:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "08:00",
+                "closes": "13:00"
+              }
+            ],
+            "areaServed": {
+              "@type": "Place",
+              "name": "South Africa"
+            },
+            "knowsAbout": [
+              "Construction Services",
+              "Home Building & Extensions",
+              "Office Fit-Outs & White Boxing",
+              "Ceilings & Partitions Installation",
+              "Plumbing, Drainage & Alterations",
+              "Roofing, Trusses & Waterproofing",
+              "Nutec Housing Solutions",
+              "Bathroom Tiling & Renovations"
+            ]
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "RASC Trading",
+            "url": "https://rasctrading.co.za",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://rasctrading.co.za/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]}
+      />
       {/* 1. Hero Section */}
       <HeroSection />
 
@@ -84,11 +155,12 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image Frame */}
           <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-gray-100 border border-gray-100 shadow-sm">
-            <img
+            <OptimizedImage
               src="/images/about/about-1.jpg"
               alt="RASC Trading Construction team at work"
+              width={800}
+              height={600}
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-102"
-              loading="lazy"
             />
           </div>
 

@@ -191,10 +191,11 @@ export default function QuoteForm() {
 
         {/* Description */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+          <label htmlFor="description" className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
             Project Description *
           </label>
           <textarea
+            id="description"
             name="description"
             value={form.description}
             onChange={handleChange}
@@ -245,10 +246,11 @@ export default function QuoteForm() {
 function Field({ label, name, type = 'text', value, onChange, error, placeholder }) {
   return (
     <div className="flex flex-col gap-1.5 w-full">
-      <label className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+      <label htmlFor={name} className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
         {label}
       </label>
       <input
+        id={name}
         type={type}
         name={name}
         value={value}
@@ -268,11 +270,12 @@ function Field({ label, name, type = 'text', value, onChange, error, placeholder
 function SelectField({ label, name, value, onChange, error, options, placeholder }) {
   return (
     <div className="flex flex-col gap-1.5 w-full">
-      <label className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+      <label htmlFor={name} className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
         {label}
       </label>
       <div className="relative">
         <select
+          id={name}
           name={name}
           value={value}
           onChange={onChange}

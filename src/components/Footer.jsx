@@ -59,7 +59,10 @@ export default function Footer() {
               <img
                 src="/images/brand/logo.png"
                 alt="RASC Trading Logo"
+                width={40}
+                height={40}
                 className="h-10 w-auto object-contain animate-heartbeat"
+                loading="lazy"
               />
               <span className="font-semibold text-lg tracking-tight text-white">
                 RASC <span className="font-light text-gray-500">Trading</span>
@@ -73,7 +76,10 @@ export default function Footer() {
               <img
                 src="/images/brand/nhbrc-badge.jpg"
                 alt="NHBRC Certification Badge"
+                width={48}
+                height={48}
                 className="h-12 w-12 rounded-lg object-cover"
+                loading="lazy"
               />
               <div>
                 <span className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest">

@@ -9,6 +9,8 @@ import { FiPhone, FiMail, FiMapPin, FiClock, FiArrowRight } from 'react-icons/fi
 
 import ContactForm from '../components/ContactForm';
 import QuoteForm from '../components/QuoteForm';
+import SEO from '../components/SEO';
+import Breadcrumb from '../components/Breadcrumb';
 import { companyInfo } from '../data/siteData';
 
 const ScrollReveal = ({ children, delay = 0, className = '' }) => (
@@ -67,6 +69,19 @@ export default function ContactPage() {
       exit="exit"
       className="bg-transparent min-h-screen pt-20"
     >
+      <SEO
+        title="Get a Construction Quote & Estimation Consult"
+        description="Get in touch with South African building contractors. Request a free cost estimate for renovations, ceilings, white boxing, plumbing, or home building projects."
+        canonical="/contact"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rasctrading.co.za/" },
+            { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://rasctrading.co.za/contact" }
+          ]
+        }}
+      />
       {/* ── Page Hero ── */}
       <section className="relative h-[320px] md:h-[400px] flex items-center justify-center overflow-hidden bg-gray-950 text-white">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-45" style={{ backgroundImage: 'url(/images/about/about-2.jpg)' }} />
@@ -80,16 +95,13 @@ export default function ContactPage() {
           >
             Get In Touch
           </motion.h1>
-          <motion.nav
-            className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-gray-400"
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <span className="text-gray-600">/</span>
-            <span>Contact</span>
-          </motion.nav>
+            <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Contact', href: '/contact' }]} />
+          </motion.div>
         </div>
       </section>
 

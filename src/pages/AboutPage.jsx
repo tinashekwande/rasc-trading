@@ -5,6 +5,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import SEO from '../components/SEO';
+import Breadcrumb from '../components/Breadcrumb';
+import OptimizedImage from '../components/OptimizedImage';
 import { FiAward, FiShield, FiHeart, FiZap, FiArrowRight, FiPhone, FiCheckCircle } from 'react-icons/fi';
 import { companyInfo, values } from '../data/siteData';
 
@@ -91,6 +94,19 @@ export default function AboutPage() {
       exit="exit"
       className="bg-transparent min-h-screen pt-20"
     >
+      <SEO
+        title="About RASC Trading | NHBRC Registered Builders & Directors"
+        description="Founded in 1990 by Rocky Naidoo and co-directed by Shaun Naidoo, RASC Trading is a premier independent building contractor offering NHBRC warranted residential & commercial development."
+        canonical="/about"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rasctrading.co.za/" },
+            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://rasctrading.co.za/about" }
+          ]
+        }}
+      />
       {/* ── Page Hero ── */}
       <section className="relative h-[320px] md:h-[400px] flex items-center justify-center overflow-hidden bg-gray-950 text-white">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40" style={{ backgroundImage: 'url(/images/about/about-1.jpg)' }} />
@@ -104,16 +120,13 @@ export default function AboutPage() {
           >
             Our Studio &amp; Story
           </motion.h1>
-          <motion.nav
-            className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-gray-400"
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <span className="text-gray-600">/</span>
-            <span>About</span>
-          </motion.nav>
+            <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'About', href: '/about' }]} />
+          </motion.div>
         </div>
       </section>
 
@@ -229,11 +242,12 @@ export default function AboutPage() {
                 <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-xs hover:shadow-md transition-all duration-300 h-full flex flex-col items-center text-center">
                   {/* Circle Portrait Photo */}
                   <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-gray-100 shadow-sm flex-shrink-0 relative">
-                    <img
+                    <OptimizedImage
                       src={member.image}
                       alt={member.name}
+                      width={128}
+                      height={128}
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                      loading="lazy"
                     />
                   </div>
                   {/* Content area */}
@@ -261,11 +275,12 @@ export default function AboutPage() {
           {/* Badge Image */}
           <ScrollReveal className="lg:col-span-4 flex justify-center">
             <div className="relative rounded-3xl overflow-hidden shadow-md border border-gray-150 p-4 max-w-[280px]">
-              <img
+              <OptimizedImage
                 src="/images/brand/nhbrc-badge.jpg"
                 alt="NHBRC Registration Badge"
+                width={280}
+                height={280}
                 className="w-full h-auto object-contain rounded-2xl"
-                loading="lazy"
               />
             </div>
           </ScrollReveal>
@@ -329,11 +344,12 @@ export default function AboutPage() {
                   key={idx}
                   className="group relative rounded-3xl overflow-hidden aspect-[4/3] border border-gray-100 shadow-sm"
                 >
-                  <img
+                  <OptimizedImage
                     src={item.img}
                     alt={item.label}
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
                   />
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-60 group-hover:opacity-85 transition-opacity duration-300" />

@@ -3,17 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#9b2022" />
 
-    <!-- Favicon -->
+    <!-- Favicon & Icons -->
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
 
-    <!-- SEO -->
+    <!-- SEO Fallback -->
     <title>RASC Trading | Premium Construction Services | Est. 1990</title>
     <meta name="description" content="RASC Trading (Rocky and Son's Construction) — NHBRC certified construction company in South Africa offering building, renovations, commercial fit-outs, plumbing, electrical, roofing, and more since 1990." />
     <meta name="keywords" content="RASC Trading, construction, building, renovations, South Africa, NHBRC, commercial fit-outs, plumbing, electrical, roofing, ceilings" />
     <meta name="author" content="RASC Trading (Pty) Ltd" />
 
-    <!-- Open Graph -->
+    <!-- Open Graph Fallback -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="RASC Trading | Premium Construction Services" />
     <meta property="og:description" content="NHBRC certified construction company in South Africa. Building, Renovations, Commercial Fit-Outs, and more since 1990." />
@@ -21,7 +25,7 @@
     <meta property="og:url" content="https://rasctrading.co.za" />
     <meta property="og:site_name" content="RASC Trading" />
 
-    <!-- Twitter Card -->
+    <!-- Twitter Card Fallback -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="RASC Trading | Premium Construction Services" />
     <meta name="twitter:description" content="NHBRC certified construction company in South Africa. Quality building and renovations since 1990." />
@@ -30,66 +34,8 @@
     <!-- Google Fonts: Playfair Display + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Local Business Schema Structured Data (SEO JSON-LD) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "HomeAndConstructionBusiness",
-        "name": "RASC Trading (Pty) Ltd",
-        "alternateName": "Rocky and Son's Construction",
-        "image": "https://rasctrading.co.za/images/brand/logo.png",
-        "@id": "https://rasctrading.co.za/#organization",
-        "url": "https://rasctrading.co.za",
-        "telephone": "+27833186161",
-        "priceRange": "$$$",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "South Africa",
-          "addressLocality": "Durban",
-          "addressRegion": "KwaZulu-Natal",
-          "addressCountry": "ZA"
-        },
-        "openingHoursSpecification": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "07:00",
-            "closes": "17:00"
-          },
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": "Saturday",
-            "opens": "08:00",
-            "closes": "13:00"
-          }
-        ],
-        "areaServed": {
-          "@type": "Place",
-          "name": "South Africa"
-        },
-        "knowsAbout": [
-          "Construction Services",
-          "Home Building & Extensions",
-          "Office Fit-Outs & White Boxing",
-          "Ceilings & Partitions Installation",
-          "Plumbing, Drainage & Alterations",
-          "Roofing, Trusses & Waterproofing",
-          "Nutec Housing Solutions",
-          "Bathroom Tiling & Renovations"
-        ]
-      }
-    </script>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" />
   </head>
   <body>
     <div id="root"></div>

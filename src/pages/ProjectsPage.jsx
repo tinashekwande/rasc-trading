@@ -9,6 +9,8 @@ import { FiPhone, FiArrowRight } from 'react-icons/fi';
 
 import ProjectCard from '../components/ProjectCard';
 import Lightbox from '../components/Lightbox';
+import SEO from '../components/SEO';
+import Breadcrumb from '../components/Breadcrumb';
 import { projects, projectCategories, companyInfo } from '../data/siteData';
 
 const pageVariants = {
@@ -65,6 +67,19 @@ export default function ProjectsPage() {
       exit="exit"
       className="bg-transparent min-h-screen pt-20"
     >
+      <SEO
+        title="Project Registry & Masonry Construction Gallery"
+        description="Browse RASC Trading's portfolio of completed residential extensions, office park white-boxing, industrial conversions, and architectural renovations across South Africa."
+        canonical="/projects"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rasctrading.co.za/" },
+            { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://rasctrading.co.za/projects" }
+          ]
+        }}
+      />
       {/* ── Page Hero ── */}
       <section className="relative h-[320px] md:h-[400px] flex items-center justify-center overflow-hidden bg-gray-950 text-white">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-45" style={{ backgroundImage: 'url(/images/projects/project-1.jpg)' }} />
@@ -78,16 +93,13 @@ export default function ProjectsPage() {
           >
             Our Work
           </motion.h1>
-          <motion.nav
-            className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-gray-400"
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <span className="text-gray-600">/</span>
-            <span>Projects</span>
-          </motion.nav>
+            <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Projects', href: '/projects' }]} />
+          </motion.div>
         </div>
       </section>
 
