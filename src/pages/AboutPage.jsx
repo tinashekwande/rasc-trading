@@ -345,12 +345,12 @@ export default function AboutPage() {
               {clientLogos.map((logo) => (
                 <div
                   key={logo.id}
-                  className="h-16 w-36 flex items-center justify-center p-3 bg-white border border-gray-100 rounded-2xl shadow-xs hover:shadow-md hover:scale-105 transition-all duration-300"
+                  className="h-20 w-44 flex items-center justify-center p-4 bg-white border border-gray-100 rounded-2xl shadow-xs hover:shadow-md hover:scale-105 transition-all duration-300"
                 >
                   <img
                     src={logo.image}
                     alt={logo.alt}
-                    className="h-full w-auto object-contain filter grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                    className="h-full w-auto object-contain filter grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                     loading="lazy"
                   />
                 </div>
