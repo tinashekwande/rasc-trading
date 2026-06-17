@@ -29,14 +29,14 @@ export default function ClientLogos() {
             {duplicatedLogos.map((logo, i) => (
               <div
                 key={`logo-${i}`}
-                className="flex items-center justify-center h-[72px] w-[192px] flex-shrink-0 cursor-pointer"
+                className="flex items-center justify-center h-[108px] w-[288px] flex-shrink-0 cursor-pointer"
               >
                 <img
                   src={logo.image}
                   alt={logo.alt}
-                  width={192}
-                  height={60}
-                  className="h-[60px] w-auto object-contain hover:scale-105 transition-all duration-300 opacity-90 hover:opacity-100"
+                  width={288}
+                  height={90}
+                  className="h-[90px] w-auto object-contain hover:scale-105 transition-all duration-300 opacity-90 hover:opacity-100"
                   loading="lazy"
                 />
               </div>
