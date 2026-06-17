@@ -227,40 +227,57 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── NHBRC Certification Section ── */}
+      {/* ── Compliance & Certifications Section ── */}
       <section className="py-24 px-6 border-b border-gray-100 bg-transparent">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Badge Image */}
-          <ScrollReveal className="lg:col-span-4 flex justify-center">
-            <div className="relative rounded-3xl overflow-hidden shadow-md border border-gray-150 p-4 max-w-[280px]">
+          {/* Badge Images */}
+          <ScrollReveal className="lg:col-span-5 flex flex-wrap sm:flex-nowrap justify-center gap-6">
+            {/* NHBRC Card */}
+            <div className="relative rounded-3xl overflow-hidden shadow-md border border-gray-150 p-4 w-full max-w-[220px] bg-white flex flex-col items-center justify-center">
               <OptimizedImage
                 src="/images/brand/nhbrc-badge.jpg"
                 alt="NHBRC Registration Badge"
-                width={280}
-                height={280}
-                className="w-full h-auto object-contain rounded-2xl"
+                width={220}
+                height={220}
+                className="w-full h-auto object-contain rounded-2xl mb-3"
               />
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">NHBRC Registered</span>
+              <span className="text-xs font-semibold text-gray-800 mt-1">Ref: {companyInfo.nhbrc}</span>
+            </div>
+
+            {/* BIBC Card */}
+            <div className="relative rounded-3xl overflow-hidden shadow-md border border-gray-150 p-4 w-full max-w-[220px] bg-white flex flex-col items-center justify-center">
+              <div className="w-full aspect-square flex items-center justify-center bg-white rounded-2xl mb-3 p-3">
+                <img
+                  src="/images/brand/bibc-logo.png"
+                  alt="BIBC Registration Badge"
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">BIBC Certified</span>
+              <span className="text-xs font-semibold text-gray-800 mt-1">Emp No: {companyInfo.bibc}</span>
             </div>
           </ScrollReveal>
 
           {/* Details list */}
-          <ScrollReveal delay={0.15} className="lg:col-span-8 flex flex-col items-start">
+          <ScrollReveal delay={0.15} className="lg:col-span-7 flex flex-col items-start">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-6 bg-gray-50 border border-gray-100 text-gray-600 uppercase tracking-wider">
-              NHBRC Compliance
+              Compliance &amp; Certifications
             </div>
             <h2 className="text-4xl font-light tracking-tight mb-6 text-gray-900 leading-tight">
-              Registered Builder &amp; <span className="font-semibold">Structural Warranty</span>
+              Registered Builder &amp; <span className="font-semibold">Industry Compliance</span>
             </h2>
             <p className="text-sm md:text-base text-gray-500 leading-relaxed mb-6">
-              RASC Trading is fully registered with the **National Home Builders Registration Council (NHBRC)**. 
-              This registry registration is a legal requirement in South Africa that ensures all home builders adhere to 
-              standard engineering specifications and building codes.
+              RASC Trading is fully registered with both the **National Home Builders Registration Council (NHBRC)** and the **Building Industry Bargaining Council (BIBC)**. 
+              This ensures that all construction operations comply with regulatory safety standards, building regulations, and statutory labor agreements in South Africa.
             </p>
             {/* Checklist */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
               {[
-                `Registration Number: ${companyInfo.nhbrc}`,
+                `NHBRC Ref No: ${companyInfo.nhbrc}`,
+                `BIBC Employer No: ${companyInfo.bibc}`,
                 'Compliant with National Building Regulations',
+                'Fair labor & bargaining wage compliance',
                 'Homeowner Warranty Protection Coverage',
                 'Regular site quality audit compliance checks',
               ].map((bullet, idx) => (
@@ -350,7 +367,7 @@ export default function AboutPage() {
                   <img
                     src={logo.image}
                     alt={logo.alt}
-                    className="h-full w-auto object-contain filter grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                    className="h-full w-auto object-contain hover:scale-105 transition-all duration-300 opacity-90 hover:opacity-100"
                     loading="lazy"
                   />
                 </div>

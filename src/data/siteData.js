@@ -861,6 +861,7 @@ export const companyInfo = {
   phone: '083 318 6161',
   email: 'info@rasctrading.co.za',
   nhbrc: '#4000019695',
+  bibc: '22971',
   location: 'Cape Town, South Africa',
   tagline: 'Building Excellence, Transforming Spaces',
   description:

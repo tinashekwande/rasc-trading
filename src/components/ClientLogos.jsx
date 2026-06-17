@@ -36,7 +36,7 @@ export default function ClientLogos() {
                   alt={logo.alt}
                   width={128}
                   height={40}
-                  className="h-10 w-auto object-contain filter grayscale opacity-40 hover:grayscale-0 hover:opacity-90 hover:scale-105 transition-all duration-300"
+                  className="h-10 w-auto object-contain hover:scale-105 transition-all duration-300 opacity-90 hover:opacity-100"
                   loading="lazy"
                 />
               </div>

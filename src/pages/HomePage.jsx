@@ -151,7 +151,10 @@ export default function HomePage() {
       {/* 2. Stats Bar */}
       <StatsBar />
 
-      {/* 3. About Story Preview */}
+      {/* 3. Client Logos */}
+      <ClientLogos />
+
+      {/* 4. About Story Preview */}
       <section className="bg-gray-50/50 py-24 px-6 border-b border-gray-100">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image Frame */}
@@ -286,10 +289,7 @@ export default function HomePage() {
       {/* 7. Testimonials */}
       <TestimonialCarousel />
 
-      {/* 8. Client Logos */}
-      <ClientLogos />
-
-      {/* 9. Full Width Call to Action Banner */}
+      {/* 8. Full Width Call to Action Banner */}
       <section className="bg-gray-950 text-white py-20 px-6 relative overflow-hidden text-center">
         {/* Subtle overlay gradients */}
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-transparent to-gray-900 pointer-events-none opacity-40" />

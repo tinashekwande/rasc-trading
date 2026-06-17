@@ -71,23 +71,46 @@ export default function Footer() {
             <p className="text-sm leading-relaxed text-gray-500">
               {companyInfo.description}
             </p>
-            {/* NHBRC Certificate Info */}
-            <div className="flex items-center gap-3.5 p-3 rounded-2xl bg-gray-900/50 border border-gray-900 w-fit">
-              <img
-                src="/images/brand/nhbrc-badge.jpg"
-                alt="NHBRC Certification Badge"
-                width={48}
-                height={48}
-                className="h-12 w-12 rounded-lg object-cover"
-                loading="lazy"
-              />
-              <div>
-                <span className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                  NHBRC Registered
-                </span>
-                <span className="block text-xs font-semibold text-white mt-0.5">
-                  Ref No: {companyInfo.nhbrc}
-                </span>
+            {/* Certifications Info */}
+            <div className="flex flex-col sm:flex-row gap-3 w-full max-w-sm">
+              {/* NHBRC */}
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-gray-900/50 border border-gray-900 flex-1">
+                <img
+                  src="/images/brand/nhbrc-badge.jpg"
+                  alt="NHBRC Certification Badge"
+                  width={48}
+                  height={48}
+                  className="h-12 w-12 rounded-lg object-cover flex-shrink-0"
+                  loading="lazy"
+                />
+                <div>
+                  <span className="block text-[9px] font-bold text-gray-500 uppercase tracking-widest">
+                    NHBRC Registered
+                  </span>
+                  <span className="block text-xs font-semibold text-white mt-0.5 whitespace-nowrap">
+                    Ref: {companyInfo.nhbrc}
+                  </span>
+                </div>
+              </div>
+
+              {/* BIBC */}
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-gray-900/50 border border-gray-900 flex-1">
+                <img
+                  src="/images/brand/bibc-logo.png"
+                  alt="BIBC Compliance Badge"
+                  width={48}
+                  height={48}
+                  className="h-12 w-12 rounded-lg object-contain bg-white p-1 flex-shrink-0"
+                  loading="lazy"
+                />
+                <div>
+                  <span className="block text-[9px] font-bold text-gray-500 uppercase tracking-widest">
+                    BIBC Certified
+                  </span>
+                  <span className="block text-xs font-semibold text-white mt-0.5 whitespace-nowrap">
+                    Emp No: {companyInfo.bibc}
+                  </span>
+                </div>
               </div>
             </div>
           </motion.div>
