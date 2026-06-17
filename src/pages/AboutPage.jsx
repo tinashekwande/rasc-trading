@@ -8,7 +8,7 @@ import SEO from '../components/SEO';
 import Breadcrumb from '../components/Breadcrumb';
 import OptimizedImage from '../components/OptimizedImage';
 import { FiAward, FiShield, FiHeart, FiZap, FiArrowRight, FiPhone, FiCheckCircle } from 'react-icons/fi';
-import { companyInfo, values } from '../data/siteData';
+import { companyInfo, values, clientLogos } from '../data/siteData';
 
 const ScrollReveal = ({ children, delay = 0, className = '' }) => (
   <motion.div
@@ -316,6 +316,43 @@ export default function AboutPage() {
                       {item.label}
                     </span>
                   </div>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Client Registry Section ── */}
+      <section className="py-24 px-6 border-b border-gray-100 bg-white/40">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-16 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-6 bg-gray-50 border border-gray-100 text-gray-600 uppercase tracking-wider">
+              Our Clients
+            </div>
+            <h2 className="text-4xl font-light tracking-tight mb-4 text-gray-900">
+              Trusted by <span className="font-semibold">Leading Brands</span>
+            </h2>
+            <p className="text-sm text-gray-500 leading-relaxed">
+              We take pride in our collaborations with commercial developers, educational institutions, and corporate clients across South Africa.
+            </p>
+          </div>
+
+          {/* Client Logos Grid */}
+          <ScrollReveal delay={0.15}>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center">
+              {clientLogos.map((logo) => (
+                <div
+                  key={logo.id}
+                  className="h-16 w-36 flex items-center justify-center p-3 bg-white border border-gray-100 rounded-2xl shadow-xs hover:shadow-md hover:scale-105 transition-all duration-300"
+                >
+                  <img
+                    src={logo.image}
+                    alt={logo.alt}
+                    className="h-full w-auto object-contain filter grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                    loading="lazy"
+                  />
                 </div>
               ))}
             </div>
