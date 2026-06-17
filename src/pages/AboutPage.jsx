@@ -2,7 +2,6 @@
 // AboutPage — Zenith About Us Page (Tailwind v4)
 // ============================================
 
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
@@ -33,8 +32,13 @@ export default function AboutPage() {
   const milestones = [
     {
       year: '1990',
-      title: 'Company Founded',
-      description: "Rocky and Son's Construction was born as a sole proprietorship, driven by a passion for quality building in South Africa."
+      title: 'Founding by Rocky Abrahams',
+      description: "Rocky Abrahams established RASC Trading as a sole proprietorship, committing to standard building codes, direct customer relations, and premium quality."
+    },
+    {
+      year: '2005',
+      title: 'Honoring His Legacy',
+      description: "Following the passing of Rocky Abrahams, the company transitioned leadership to carry forward his foundational principles of trust and construction excellence."
     },
     {
       year: '2022',
@@ -43,48 +47,10 @@ export default function AboutPage() {
     },
     {
       year: '500+ Projects',
-      title: 'Structural Developments',
-      description: 'From high-end residential extensions to office park white boxing, our registry of completions stands as proof of quality.'
+      title: 'Structural Registry',
+      description: 'From bespoke renovations to complex industrial builds, our registry of over 500 completions stands as proof of quality.'
     }
   ];
-
-  const [teamMembers, setTeamMembers] = useState([]);
-
-  useEffect(() => {
-    const fetchTeam = async () => {
-      try {
-        const res = await fetch('/api/team');
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data && json.data.length > 0) {
-            setTeamMembers(json.data);
-          }
-        }
-      } catch (err) {
-        console.error('Failed to fetch team members, using defaults:', err);
-      }
-    };
-    fetchTeam();
-  }, []);
-
-  const fallbackTeam = [
-    {
-      id: 'team-1',
-      name: 'Rocky Naidoo',
-      position: 'Founder & Director',
-      description: "Rocky founded RASC Trading in 1990 as a sole proprietorship. Under his leadership, the business has grown into one of South Africa's premier independent building contractors.",
-      image: '/images/about/about-3.jpg'
-    },
-    {
-      id: 'team-2',
-      name: 'Shaun Naidoo',
-      position: 'Co-Director & Project Manager',
-      description: 'Shaun handles on-site executions, structural compliance engineering, and direct customer relations, ensuring all builds are executed on budget and with precision.',
-      image: '/images/about/about-4.jpg'
-    }
-  ];
-
-  const activeTeam = teamMembers.length > 0 ? teamMembers : fallbackTeam;
 
   return (
     <motion.div
@@ -95,8 +61,8 @@ export default function AboutPage() {
       className="bg-transparent min-h-screen pt-20"
     >
       <SEO
-        title="About RASC Trading | NHBRC Registered Builders & Directors"
-        description="Founded in 1990 by Rocky Naidoo and co-directed by Shaun Naidoo, RASC Trading is a premier independent building contractor offering NHBRC warranted residential & commercial development."
+        title="About RASC Trading | NHBRC Registered Builders & Legacy"
+        description="Founded in 1990 by Rocky Abrahams, RASC Trading is a premier independent building contractor offering NHBRC warranted residential & commercial development."
         canonical="/about"
         structuredData={{
           "@context": "https://schema.org",
@@ -142,8 +108,9 @@ export default function AboutPage() {
               Building Dreams &amp; <span className="font-semibold">Bespoke Spaces</span>
             </h2>
             <p className="text-sm md:text-base text-gray-500 leading-relaxed mb-4">
-              Rocky and Son&apos;s is a privately owned and managed company. The business was conceived in 1990 as a Sole Proprietor 
-              and developed into a (Pty)Ltd in 2022, as a result of demands and needs of the industry.
+              Rocky and Son&apos;s is a privately owned company founded by Rocky Abrahams in 1990. Under his dedicated leadership, 
+              the sole proprietorship established a solid reputation for quality, which we transitioned to a (Pty) Ltd in 2022 
+              to meet the evolving needs of the construction industry.
             </p>
             <p className="text-sm md:text-base text-gray-500 leading-relaxed mb-4">
               Rocky and Sons are an independent construction company that provides a wide range of services. 
@@ -219,53 +186,44 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Meet Our Team Section ── */}
+      {/* ── Founder's Legacy Section ── */}
       <section className="py-24 px-6 border-b border-gray-100 bg-white/40">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-16 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-6 bg-gray-50 border border-gray-100 text-gray-600 uppercase tracking-wider">
-              Management
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Portrait Photo */}
+          <ScrollReveal className="lg:col-span-5 flex flex-col items-center justify-center">
+            <div className="relative rounded-3xl overflow-hidden aspect-[4/5] border border-gray-150 p-4 max-w-[320px] bg-white shadow-md">
+              <OptimizedImage
+                src="/images/about/rocky-abrahams.jpg"
+                alt="Founder Rocky Abrahams"
+                width={320}
+                height={400}
+                className="w-full h-full object-cover rounded-2xl"
+              />
             </div>
-            <h2 className="text-4xl font-light tracking-tight mb-4 text-gray-900">
-              Meet Our <span className="font-semibold">Leadership & Team</span>
-            </h2>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              The professional leadership steering RASC Trading's building sites and estimation divisions to success.
-            </p>
-          </div>
+            <div className="mt-4 text-center">
+              <span className="block text-base font-bold text-gray-950">Rocky Abrahams</span>
+              <span className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mt-1">Founder (1990 — 2005)</span>
+            </div>
+          </ScrollReveal>
 
-          {/* Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-            {activeTeam.map((member, idx) => (
-              <ScrollReveal key={member.id || idx} delay={idx * 0.08} className="h-full">
-                <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-xs hover:shadow-md transition-all duration-300 h-full flex flex-col items-center text-center">
-                  {/* Circle Portrait Photo */}
-                  <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-gray-100 shadow-sm flex-shrink-0 relative">
-                    <OptimizedImage
-                      src={member.image}
-                      alt={member.name}
-                      width={128}
-                      height={128}
-                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                    />
-                  </div>
-                  {/* Content area */}
-                  <div className="mt-6 flex-grow flex flex-col items-center">
-                    <h3 className="font-semibold text-lg text-gray-900 mb-1">
-                      {member.name}
-                    </h3>
-                    <span className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">
-                      {member.position}
-                    </span>
-                    <p className="text-xs text-gray-500 leading-relaxed flex-grow">
-                      {member.description}
-                    </p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          {/* Legacy text */}
+          <ScrollReveal delay={0.15} className="lg:col-span-7 flex flex-col items-start">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-6 bg-gray-50 border border-gray-100 text-gray-600 uppercase tracking-wider">
+              Our Legacy
+            </div>
+            <h2 className="text-4xl font-light tracking-tight mb-6 text-gray-900 leading-tight">
+              Honoring Our Founder: <span className="font-semibold">Rocky Abrahams</span>
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 leading-relaxed mb-4">
+              RASC Trading was built on a foundation of hard work, craftsmanship, and absolute integrity—values established by our late founder, Rocky Abrahams. Rocky envisioned a construction company that would deliver unmatched structural quality and build lasting relationships in our community.
+            </p>
+            <p className="text-sm md:text-base text-gray-500 leading-relaxed mb-4">
+              Starting the business in 1990 as a sole proprietorship, Rocky personally oversaw and managed every single construction project. His hands-on leadership, standard of craftsmanship, and dedication to building excellence guided the firm through its foundational 15 years until his passing in 2005.
+            </p>
+            <p className="text-sm md:text-base text-gray-500 leading-relaxed">
+              Today, we honor his vision and legacy by continuing to build according to the exact same standards of quality and trust that he instilled from day one. Rocky's passion remains the cornerstone of RASC Trading.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
