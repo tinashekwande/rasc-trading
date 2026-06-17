@@ -198,7 +198,6 @@ export default function AdminPage() {
             setNewProjTitle('');
             setNewProjCategory('Residential');
             setNewProjImage('');
-            alert("Project added successfully!");
             return;
           }
         }
@@ -272,7 +271,6 @@ export default function AdminPage() {
           if (json.success) {
             setProjectsList(prev => prev.map(p => p.id === editingProject.id ? json.data : p));
             setEditingProject(null);
-            alert('Project updated successfully!');
             return;
           }
         }
@@ -320,7 +318,6 @@ export default function AdminPage() {
             setNewMemberPosition('');
             setNewMemberDescription('');
             setNewMemberImage('');
-            alert("Team member added!");
             return;
           }
         }
@@ -396,7 +393,6 @@ export default function AdminPage() {
           if (json.success) {
             setTeamList(prev => prev.map(t => t.id === editingMember.id ? json.data : t));
             setEditingMember(null);
-            alert("Team member updated successfully!");
             return;
           }
         }
@@ -434,7 +430,6 @@ export default function AdminPage() {
         if (json.success) {
           setCategoriesList(prev => [...prev, json.data]);
           setNewCategoryName('');
-          alert("Category added successfully!");
         } else {
           alert(`Error: ${json.error || 'Failed to add category'}`);
         }
