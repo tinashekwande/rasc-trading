@@ -18,6 +18,7 @@ import ClientLogos from '../components/ClientLogos';
 import ContactForm from '../components/ContactForm';
 import Lightbox from '../components/Lightbox';
 import SEO from '../components/SEO';
+import OptimizedImage from '../components/OptimizedImage';
 
 // Data
 import { services, projects, companyInfo } from '../data/siteData';
