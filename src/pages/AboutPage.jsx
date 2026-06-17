@@ -362,7 +362,7 @@ export default function AboutPage() {
               {clientLogos.map((logo) => (
                 <div
                   key={logo.id}
-                  className="h-20 w-44 flex items-center justify-center p-4 bg-white border border-gray-100 rounded-2xl shadow-xs hover:shadow-md hover:scale-105 transition-all duration-300"
+                  className="h-[120px] w-[264px] flex items-center justify-center p-6 bg-white border border-gray-100 rounded-2xl shadow-xs hover:shadow-md hover:scale-105 transition-all duration-300"
                 >
                   <img
                     src={logo.image}
