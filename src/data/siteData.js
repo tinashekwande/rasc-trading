@@ -886,11 +886,33 @@ export const navigationLinks = [
 // ============================================
 // CLIENT LOGOS
 // ============================================
-export const clientLogos = Array.from({ length: 9 }, (_, i) => ({
-  id: i + 1,
-  image: `/images/clients/client-${i + 1}.png`,
-  alt: `Client ${i + 1}`,
-}));
+export const clientLogos = [
+  {
+    id: 1,
+    image: '/images/clients/SAICA.jpg',
+    alt: 'SAICA (South African Institute of Chartered Accountants)',
+  },
+  {
+    id: 2,
+    image: '/images/clients/tcc.jpg',
+    alt: 'TCC',
+  },
+  {
+    id: 3,
+    image: '/images/clients/rEALGOOD.jpg',
+    alt: 'Real Good',
+  },
+  {
+    id: 4,
+    image: '/images/clients/gOODHOPE.jpg',
+    alt: 'Good Hope',
+  },
+  {
+    id: 5,
+    image: '/images/clients/AM.jpg',
+    alt: 'AM',
+  },
+];
 
 
 // ============================================
