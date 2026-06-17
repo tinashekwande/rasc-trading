@@ -53,6 +53,12 @@ export default function AdminPage() {
   const [editMemberDescription, setEditMemberDescription] = useState('');
   const [editMemberImage, setEditMemberImage] = useState('');
 
+  // Edit states for projects
+  const [editingProject, setEditingProject] = useState(null);
+  const [editProjTitle, setEditProjTitle] = useState('');
+  const [editProjCategory, setEditProjCategory] = useState('Residential');
+  const [editProjImage, setEditProjImage] = useState('');
+
   // Detail View Modal State
   const [selectedInquiry, setSelectedInquiry] = useState(null);
 
@@ -214,6 +220,56 @@ export default function AdminPage() {
     } catch (err) {
       console.error(err);
       alert(`Network / Connection Error: ${err.message || 'Failed to delete project'}`);
+    }
+  };
+
+  const handleEditProjectClick = (proj) => {
+    setEditingProject(proj);
+    setEditProjTitle(proj.title);
+    setEditProjCategory(proj.category);
+    setEditProjImage(proj.image);
+  };
+
+  const handleUpdateProject = async (e) => {
+    e.preventDefault();
+    if (!editProjTitle || !editProjCategory) {
+      alert('Please fill in title and category.');
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/projects/${editingProject.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': 'rasc-admin-2024'
+        },
+        body: JSON.stringify({
+          title: editProjTitle,
+          category: editProjCategory,
+          image: editProjImage
+        })
+      });
+
+      if (res.ok) {
+        const contentType = res.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const json = await res.json();
+          if (json.success) {
+            setProjectsList(prev => prev.map(p => p.id === editingProject.id ? json.data : p));
+            setEditingProject(null);
+            alert('Project updated successfully!');
+            return;
+          }
+        }
+        alert('Project updated, but response format was unexpected.');
+      } else {
+        const errorMsg = await getErrorMessage(res, 'Failed to update project');
+        alert(`Error: ${errorMsg}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(`Network / Connection Error: ${err.message || 'Failed to update project'}`);
     }
   };
 
@@ -739,13 +795,22 @@ export default function AdminPage() {
                         <span className="block text-[8px] md:text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">{proj.category}</span>
                         <h4 className="font-semibold text-xs md:text-sm text-gray-900 truncate">{proj.title}</h4>
                       </div>
-                      <button
-                         onClick={() => handleDeleteProject(proj.id)}
-                         className="absolute bottom-2 right-2 md:bottom-3 md:right-3 p-1.5 md:p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 transition-colors cursor-pointer"
-                         title="Delete work item"
-                      >
-                        <FiTrash2 size={12} className="md:w-3.5 md:h-3.5" />
-                      </button>
+                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 flex items-center gap-1.5">
+                        <button
+                           onClick={() => handleEditProjectClick(proj)}
+                           className="p-1.5 md:p-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-100 transition-colors cursor-pointer"
+                           title="Edit project"
+                        >
+                          <FiEdit size={12} className="md:w-3.5 md:h-3.5" />
+                        </button>
+                        <button
+                           onClick={() => handleDeleteProject(proj.id)}
+                           className="p-1.5 md:p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 transition-colors cursor-pointer"
+                           title="Delete work item"
+                        >
+                          <FiTrash2 size={12} className="md:w-3.5 md:h-3.5" />
+                        </button>
+                      </div>
                     </div>
                   ))}
                   {projectsList.length === 0 && (
@@ -754,6 +819,122 @@ export default function AdminPage() {
                 </div>
               </div>
             </div>
+
+            {/* ── Project Edit Modal ── */}
+            <AnimatePresence>
+              {editingProject && (
+                <motion.div
+                  className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 md:p-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={(e) => { if (e.target === e.currentTarget) setEditingProject(null); }}
+                >
+                  <motion.div
+                    className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden"
+                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  >
+                    {/* Modal Header */}
+                    <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-gray-100">
+                      <div>
+                        <h3 className="font-semibold text-lg text-gray-900">Edit Project</h3>
+                        <p className="text-xs text-gray-400 mt-0.5 truncate max-w-xs">{editingProject.title}</p>
+                      </div>
+                      <button
+                        onClick={() => setEditingProject(null)}
+                        className="p-2 rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    {/* Modal Body */}
+                    <form onSubmit={handleUpdateProject} className="p-8 space-y-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {/* Title */}
+                        <div className="space-y-2">
+                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Project Title</label>
+                          <input
+                            type="text"
+                            required
+                            value={editProjTitle}
+                            onChange={e => setEditProjTitle(e.target.value)}
+                            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
+                          />
+                        </div>
+
+                        {/* Category */}
+                        <div className="space-y-2">
+                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Classification</label>
+                          <select
+                            value={editProjCategory}
+                            onChange={e => setEditProjCategory(e.target.value)}
+                            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
+                          >
+                            <option value="Residential">Residential</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Renovation">Renovation</option>
+                            <option value="White Boxing">White Boxing</option>
+                            <option value="Infrastructure">Infrastructure</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* Image replacement */}
+                      <div className="space-y-2">
+                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Project Image</label>
+                        <div className="flex flex-col sm:flex-row gap-4 items-start">
+                          {/* Current / new preview */}
+                          <div className="w-full sm:w-40 h-28 rounded-xl overflow-hidden border border-gray-100 bg-gray-50 flex-shrink-0">
+                            {editProjImage ? (
+                              <img src={editProjImage} alt="Preview" className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-gray-300 text-xs">No image</div>
+                            )}
+                          </div>
+                          <div className="flex flex-col gap-2 flex-grow">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={e => handleImageUpload(e, setEditProjImage)}
+                              className="hidden"
+                              id="edit-proj-image-file"
+                            />
+                            <label
+                              htmlFor="edit-proj-image-file"
+                              className="px-5 py-2.5 rounded-xl border border-dashed border-gray-300 hover:border-gray-950 bg-gray-50 text-xs font-semibold text-gray-600 cursor-pointer text-center transition-colors"
+                            >
+                              Replace Photo
+                            </label>
+                            <p className="text-[10px] text-gray-400 leading-relaxed">Leave unchanged to keep the current photo. Max 2MB.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex items-center justify-end gap-3 pt-2">
+                        <button
+                          type="button"
+                          onClick={() => setEditingProject(null)}
+                          className="px-6 py-2.5 rounded-full text-xs font-semibold border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          className="px-6 py-2.5 rounded-full text-xs font-semibold bg-primary text-white hover:bg-primary-hover transition-colors cursor-pointer shadow-xs"
+                        >
+                          Save Changes
+                        </button>
+                      </div>
+                    </form>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           )}
 
           {/* 2.3 Manage Team Content */}

@@ -284,6 +284,93 @@ router.delete('/projects/:id', verifyAdmin, async (req, res) => {
   }
 });
 
+// PUT /api/projects/:id - Update a project (Admin Only)
+router.put('/projects/:id', verifyAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, category, image } = req.body;
+
+    if (!title || !category) {
+      return res.status(400).json({ success: false, error: 'Title and category are required.' });
+    }
+
+    let savedImagePath = image;
+    // Only process upload if it's a new Base64 string
+    if (image && image.startsWith('data:image')) {
+      savedImagePath = await saveUploadedImage(image, 'project');
+    }
+
+    if (supabase) {
+      // Get original image for cleanup if a new one was uploaded
+      let oldImage = null;
+      if (image && image.startsWith('data:image')) {
+        const { data: project } = await supabase
+          .from('projects')
+          .select('image')
+          .eq('id', id)
+          .single();
+        if (project) oldImage = project.image;
+      }
+
+      const updateData = { title, category };
+      if (savedImagePath && !savedImagePath.startsWith('data:image')) {
+        updateData.image = savedImagePath;
+      }
+
+      const { error } = await supabase
+        .from('projects')
+        .update(updateData)
+        .eq('id', id);
+
+      if (error) throw error;
+
+      // Clean up old image from storage if replaced
+      if (oldImage && oldImage.includes(supabaseBucket) && savedImagePath !== oldImage) {
+        try {
+          const urlParts = oldImage.split('/');
+          const filename = urlParts[urlParts.length - 1];
+          await supabase.storage.from(supabaseBucket).remove([filename]);
+        } catch (storageErr) {
+          console.error('Failed to clean up old image from Supabase Storage:', storageErr);
+        }
+      }
+
+      // Fetch the full updated record to return
+      const { data: updatedProject } = await supabase
+        .from('projects')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      return res.json({ success: true, data: updatedProject || { id, ...updateData } });
+    }
+
+    // Local JSON Fallback
+    const projectsList = readJSON(PROJECTS_FILE);
+    const projectIndex = projectsList.findIndex(p => p.id === id);
+
+    if (projectIndex === -1) {
+      return res.status(404).json({ success: false, error: 'Project not found.' });
+    }
+
+    const oldProject = projectsList[projectIndex];
+    const updatedProject = {
+      ...oldProject,
+      title,
+      category,
+      image: savedImagePath || oldProject.image
+    };
+
+    projectsList[projectIndex] = updatedProject;
+    writeJSON(PROJECTS_FILE, projectsList);
+
+    res.json({ success: true, data: updatedProject });
+  } catch (error) {
+    console.error('Error updating project:', error);
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
+  }
+});
+
 // ============================================
 // TEAM MEMBERS ENDPOINTS
 // ============================================
