@@ -197,7 +197,7 @@ export const projects = [
   {
     "id": "proj-9",
     "title": "Nutec Housing Development",
-    "category": "Residential",
+    "category": "Nutec",
     "image": "/images/projects/project-9.jpg"
   },
   {
@@ -214,8 +214,8 @@ export const projects = [
   },
   {
     "id": "proj-12",
-    "title": "Multi-Unit Residential Complex",
-    "category": "Residential",
+    "title": "Nutec House Build",
+    "category": "Nutec",
     "image": "/images/projects/project-12.jpg"
   },
   {
@@ -340,8 +340,8 @@ export const projects = [
   },
   {
     "id": "proj-imported-21",
-    "title": "Premium Residential Build 7",
-    "category": "Residential",
+    "title": "Nutec Interior Finish",
+    "category": "Nutec",
     "image": "/images/projects/imported-residential-21.jpg"
   },
   {
@@ -616,8 +616,8 @@ export const projects = [
   },
   {
     "id": "proj-imported-67",
-    "title": "Premium Residential Build 23",
-    "category": "Residential",
+    "title": "Nutec House Interior",
+    "category": "Nutec",
     "image": "/images/projects/imported-residential-67.jpg"
   },
   {
@@ -712,8 +712,8 @@ export const projects = [
   },
   {
     "id": "proj-imported-83",
-    "title": "Commercial White Boxing Phase 26",
-    "category": "Commercial",
+    "title": "Nutec House Exterior",
+    "category": "Nutec",
     "image": "/images/projects/imported-commercial-83.jpg"
   },
   {
@@ -730,14 +730,14 @@ export const projects = [
   },
   {
     "id": "proj-imported-86",
-    "title": "Commercial White Boxing Phase 29",
-    "category": "Commercial",
+    "title": "Nutec House with Deck",
+    "category": "Nutec",
     "image": "/images/projects/imported-commercial-86.jpg"
   },
   {
     "id": "proj-imported-87",
-    "title": "Commercial White Boxing Phase 30",
-    "category": "Commercial",
+    "title": "Nutec House Interior Completion",
+    "category": "Nutec",
     "image": "/images/projects/imported-commercial-87.jpg"
   }
 ];
@@ -936,5 +936,6 @@ export const projectCategories = [
   'Residential',
   'Commercial',
   'Renovation',
+  'Nutec',
 ];
 

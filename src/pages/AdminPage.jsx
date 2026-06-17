@@ -719,6 +719,7 @@ export default function AdminPage() {
                           <option value="Renovation">Renovation</option>
                           <option value="White Boxing">White Boxing</option>
                           <option value="Infrastructure">Infrastructure</option>
+                           <option value="Nutec">Nutec</option>
                         </select>
                       </div>
                     </div>
@@ -879,6 +880,7 @@ export default function AdminPage() {
                             <option value="Commercial">Commercial</option>
                             <option value="Renovation">Renovation</option>
                             <option value="White Boxing">White Boxing</option>
+                            <option value="Nutec">Nutec</option>
                             <option value="Infrastructure">Infrastructure</option>
                           </select>
                         </div>

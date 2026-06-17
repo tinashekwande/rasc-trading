@@ -29,10 +29,10 @@ const defaultProjects = [
   { id: 'proj-6', title: 'Industrial Warehouse Conversion', category: 'Commercial', image: '/images/projects/project-6.jpg' },
   { id: 'proj-7', title: 'Family Home Extension', category: 'Residential', image: '/images/projects/project-7.jpg' },
   { id: 'proj-8', title: 'Restaurant Interior', category: 'Commercial', image: '/images/projects/project-8.jpg' },
-  { id: 'proj-9', title: 'Nutec Housing Development', category: 'Residential', image: '/images/projects/project-9.jpg' },
+  { id: 'proj-9', title: 'Nutec Housing Development', category: 'Nutec', image: '/images/projects/project-9.jpg' },
   { id: 'proj-10', title: 'Corporate Office White-Box', category: 'Commercial', image: '/images/projects/project-10.jpg' },
   { id: 'proj-11', title: 'Bathroom & Tiling Renovation', category: 'Renovation', image: '/images/projects/project-11.jpg' },
-  { id: 'proj-12', title: 'Multi-Unit Residential Complex', category: 'Residential', image: '/images/projects/project-12.jpg' }
+  { id: 'proj-12', title: 'Nutec House Build', category: 'Nutec', image: '/images/projects/project-12.jpg' }
 ];
 
 // Initial default team setup
