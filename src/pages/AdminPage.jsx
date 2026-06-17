@@ -28,12 +28,14 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [activeTab, setActiveTab] = useState('inquiries');
+  const [activeTab, setActiveTab] = useState('projects');
   const [inquiries, setInquiries] = useState([]);
   const [quotes, setQuotes] = useState([]);
   const [projectsList, setProjectsList] = useState([]);
   const [teamList, setTeamList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [categoriesList, setCategoriesList] = useState(['Residential', 'Commercial', 'Renovation', 'White Boxing', 'Infrastructure', 'Nutec']);
+  const [newCategoryName, setNewCategoryName] = useState('');
 
   // Form states for projects
   const [newProjTitle, setNewProjTitle] = useState('');
@@ -100,11 +102,12 @@ export default function AdminPage() {
     setLoading(true);
     try {
       const headers = { 'x-admin-key': 'rasc-admin-2024' };
-      const [inqRes, quoteRes, projRes, teamRes] = await Promise.allSettled([
+      const [inqRes, quoteRes, projRes, teamRes, catRes] = await Promise.allSettled([
         fetch('/api/inquiries', { headers }),
         fetch('/api/quotes', { headers }),
         fetch('/api/projects'),
-        fetch('/api/team')
+        fetch('/api/team'),
+        fetch('/api/categories')
       ]);
 
       if (inqRes.status === 'fulfilled' && inqRes.value.ok && inqRes.value.headers.get('content-type')?.includes('application/json')) {
@@ -139,6 +142,17 @@ export default function AdminPage() {
       if (teamRes.status === 'fulfilled' && teamRes.value.ok && teamRes.value.headers.get('content-type')?.includes('application/json')) {
         const data = await teamRes.value.json();
         setTeamList(data.data || []);
+      }
+
+      if (catRes.status === 'fulfilled' && catRes.value.ok && catRes.value.headers.get('content-type')?.includes('application/json')) {
+        const data = await catRes.value.json();
+        if (data.success && data.data) {
+          setCategoriesList(data.data);
+          if (data.data.length > 0) {
+            setNewProjCategory(data.data[0]);
+            setEditProjCategory(data.data[0]);
+          }
+        }
       }
     } catch (err) {
       console.error("Sync error:", err);
@@ -397,6 +411,67 @@ export default function AdminPage() {
     }
   };
 
+  // Category Mutations
+  const handleAddCategory = async (e) => {
+    e.preventDefault();
+    if (!newCategoryName || !newCategoryName.trim()) {
+      alert("Please enter a category name.");
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/categories', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': 'rasc-admin-2024'
+        },
+        body: JSON.stringify({ name: newCategoryName.trim() })
+      });
+
+      if (res.ok) {
+        const json = await res.json();
+        if (json.success) {
+          setCategoriesList(prev => [...prev, json.data]);
+          setNewCategoryName('');
+          alert("Category added successfully!");
+        } else {
+          alert(`Error: ${json.error || 'Failed to add category'}`);
+        }
+      } else {
+        const errorMsg = await getErrorMessage(res, 'Failed to add category');
+        alert(`Error: ${errorMsg}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(`Network / Connection Error: ${err.message || 'Failed to add category'}`);
+    }
+  };
+
+  const handleDeleteCategory = async (name) => {
+    if (!window.confirm(`Are you sure you want to delete the category "${name}"? Existing projects with this category will not be deleted, but they will no longer be easily selectable.`)) return;
+
+    try {
+      const res = await fetch(`/api/categories/${encodeURIComponent(name)}`, {
+        method: 'DELETE',
+        headers: {
+          'x-admin-key': 'rasc-admin-2024'
+        }
+      });
+
+      if (res.ok) {
+        setCategoriesList(prev => prev.filter(c => c !== name));
+        alert("Category deleted successfully.");
+      } else {
+        const errorMsg = await getErrorMessage(res, 'Failed to delete category');
+        alert(`Error: ${errorMsg}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(`Network / Connection Error: ${err.message || 'Failed to delete category'}`);
+    }
+  };
+
   /* ── 1. Login Screen ── */
   if (!isAuthenticated) {
     return (
@@ -544,10 +619,11 @@ export default function AdminPage() {
       {/* Tabs Selector */}
       <div className="flex gap-2 p-1.5 bg-gray-50 border border-gray-100 rounded-2xl w-full overflow-x-auto scrollbar-none whitespace-nowrap">
         {[
+          { id: 'projects', label: 'Manage Projects' },
           { id: 'inquiries', label: 'Contact Inquiries' },
           { id: 'quotes', label: 'Quote Requests' },
-          { id: 'projects', label: 'Manage Projects' },
-          { id: 'team', label: 'Manage Team' }
+          { id: 'team', label: 'Manage Team' },
+          { id: 'categories', label: 'Manage Categories' }
         ].map(tab => (
           <button
             key={tab.id}
@@ -714,12 +790,9 @@ export default function AdminPage() {
                            onChange={e => setNewProjCategory(e.target.value)}
                            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
                         >
-                          <option value="Residential">Residential</option>
-                          <option value="Commercial">Commercial</option>
-                          <option value="Renovation">Renovation</option>
-                          <option value="White Boxing">White Boxing</option>
-                          <option value="Infrastructure">Infrastructure</option>
-                           <option value="Nutec">Nutec</option>
+                          {categoriesList.map(cat => (
+                            <option key={cat} value={cat}>{cat}</option>
+                          ))}
                         </select>
                       </div>
                     </div>
@@ -876,12 +949,9 @@ export default function AdminPage() {
                             onChange={e => setEditProjCategory(e.target.value)}
                             className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all"
                           >
-                            <option value="Residential">Residential</option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="Renovation">Renovation</option>
-                            <option value="White Boxing">White Boxing</option>
-                            <option value="Nutec">Nutec</option>
-                            <option value="Infrastructure">Infrastructure</option>
+                             {categoriesList.map(cat => (
+                               <option key={cat} value={cat}>{cat}</option>
+                             ))}
                           </select>
                         </div>
                       </div>
@@ -1083,6 +1153,61 @@ export default function AdminPage() {
                   ))}
                   {teamList.length === 0 && (
                     <p className="text-sm text-gray-400 col-span-full">No team members registered yet.</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 2.4 Manage Categories Content */}
+          {activeTab === 'categories' && (
+            <div className="p-6 md:p-8 space-y-8 bg-white rounded-3xl shadow-md">
+              <div>
+                <h3 className="font-semibold text-lg text-gray-900 mb-6">Add New Category</h3>
+                <form onSubmit={handleAddCategory} className="flex flex-col sm:flex-row gap-4 max-w-xl">
+                  <div className="flex-grow space-y-2">
+                    <input
+                       type="text"
+                       required
+                       value={newCategoryName}
+                       onChange={e => setNewCategoryName(e.target.value)}
+                       placeholder="e.g. Building"
+                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-900 focus:bg-white transition-all text-gray-900"
+                    />
+                  </div>
+                  <button
+                     type="submit"
+                     className="px-6 py-3 rounded-full font-semibold bg-primary text-white hover:bg-primary-hover text-xs cursor-pointer shadow-xs transition-colors flex items-center justify-center gap-1.5 h-11"
+                  >
+                     <FiPlus size={14} />
+                     <span>Add Category</span>
+                  </button>
+                </form>
+              </div>
+
+              <hr className="border-gray-100" />
+
+              <div>
+                <h3 className="font-semibold text-lg text-gray-900 mb-6">Current Categories ({categoriesList.length})</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {categoriesList.map(cat => (
+                    <div
+                      key={cat}
+                      className="flex items-center justify-between p-4 bg-gray-50 border border-gray-150 rounded-2xl hover:shadow-xs transition-shadow"
+                    >
+                      <span className="font-semibold text-sm text-gray-800">{cat}</span>
+                      <button
+                        onClick={() => handleDeleteCategory(cat)}
+                        className="p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 transition-colors cursor-pointer"
+                        title={`Delete ${cat}`}
+                        type="button"
+                      >
+                        <FiTrash2 size={13} />
+                      </button>
+                    </div>
+                  ))}
+                  {categoriesList.length === 0 && (
+                    <p className="text-sm text-gray-400 col-span-full">No categories defined yet.</p>
                   )}
                 </div>
               </div>

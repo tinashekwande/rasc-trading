@@ -13,6 +13,9 @@ const __dirname = dirname(__filename);
 const DATA_DIR = join(__dirname, '..', 'data');
 const PROJECTS_FILE = join(DATA_DIR, 'projects.json');
 const TEAM_FILE = join(DATA_DIR, 'team.json');
+const CATEGORIES_FILE = join(DATA_DIR, 'categories.json');
+
+const defaultCategories = ["Residential", "Commercial", "Renovation", "White Boxing", "Infrastructure", "Nutec"];
 
 // Ensure data folder exists
 if (!fs.existsSync(DATA_DIR)) {
@@ -59,6 +62,9 @@ if (!fs.existsSync(PROJECTS_FILE)) {
 }
 if (!fs.existsSync(TEAM_FILE)) {
   fs.writeFileSync(TEAM_FILE, JSON.stringify(defaultTeam, null, 2));
+}
+if (!fs.existsSync(CATEGORIES_FILE)) {
+  fs.writeFileSync(CATEGORIES_FILE, JSON.stringify(defaultCategories, null, 2));
 }
 
 // Helper: Read JSON file safely
@@ -156,6 +162,23 @@ const seedSupabaseIfEmpty = async () => {
       console.log('🌱 Seeding default team to Supabase...');
       const { error } = await supabase.from('team').insert(defaultTeam);
       if (error) throw error;
+    }
+
+    // Check categories
+    try {
+      const { count: catCount, error: catError } = await supabase
+        .from('categories')
+        .select('*', { count: 'exact', head: true });
+      
+      if (!catError && catCount === 0) {
+        console.log('🌱 Seeding default categories to Supabase...');
+        const { error } = await supabase.from('categories').insert(
+          defaultCategories.map(name => ({ name }))
+        );
+        if (error) throw error;
+      }
+    } catch (catTableErr) {
+      // Ignore if categories table does not exist
     }
   } catch (err) {
     console.error('⚠️ Supabase seeding check failed (tables might not exist yet):', err);
@@ -569,6 +592,111 @@ router.put('/team/:id', verifyAdmin, async (req, res) => {
     res.json({ success: true, data: updatedMember });
   } catch (error) {
     console.error('Error updating team member:', error);
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
+  }
+});
+
+// ============================================
+// CATEGORIES ENDPOINTS
+// ============================================
+
+// GET /api/categories - Retrieve all categories
+router.get('/categories', async (req, res) => {
+  try {
+    if (supabase) {
+      try {
+        const { data, error } = await supabase
+          .from('categories')
+          .select('name')
+          .order('name', { ascending: true });
+
+        if (!error && data) {
+          return res.json({ success: true, data: data.map(c => c.name) });
+        }
+      } catch (dbErr) {
+        // Fall back to local JSON
+      }
+    }
+
+    const categoriesList = readJSON(CATEGORIES_FILE);
+    res.json({ success: true, data: categoriesList });
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
+  }
+});
+
+// POST /api/categories - Add a new category (Admin Only)
+router.post('/categories', verifyAdmin, async (req, res) => {
+  try {
+    const { name } = req.body;
+    if (!name || !name.trim()) {
+      return res.status(400).json({ success: false, error: 'Category name is required.' });
+    }
+
+    const formattedName = name.trim();
+
+    if (supabase) {
+      try {
+        const { error } = await supabase
+          .from('categories')
+          .insert([{ name: formattedName }]);
+
+        if (!error) {
+          return res.status(201).json({ success: true, data: formattedName });
+        }
+      } catch (err) {
+        // Fall back to local JSON
+      }
+    }
+
+    const categoriesList = readJSON(CATEGORIES_FILE);
+    if (categoriesList.includes(formattedName)) {
+      return res.status(400).json({ success: false, error: 'Category already exists.' });
+    }
+
+    categoriesList.push(formattedName);
+    writeJSON(CATEGORIES_FILE, categoriesList);
+
+    res.status(201).json({ success: true, data: formattedName });
+  } catch (error) {
+    console.error('Error creating category:', error);
+    res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
+  }
+});
+
+// DELETE /api/categories/:name - Remove a category (Admin Only)
+router.delete('/categories/:name', verifyAdmin, async (req, res) => {
+  try {
+    const { name } = req.params;
+
+    if (supabase) {
+      try {
+        const { error } = await supabase
+          .from('categories')
+          .delete()
+          .eq('name', name);
+
+        if (!error) {
+          return res.json({ success: true, message: 'Category removed successfully.' });
+        }
+      } catch (err) {
+        // Fall back to local JSON
+      }
+    }
+
+    let categoriesList = readJSON(CATEGORIES_FILE);
+    const initialLength = categoriesList.length;
+    categoriesList = categoriesList.filter(c => c !== name);
+
+    if (categoriesList.length === initialLength) {
+      return res.status(404).json({ success: false, error: 'Category not found.' });
+    }
+
+    writeJSON(CATEGORIES_FILE, categoriesList);
+    res.json({ success: true, message: 'Category removed successfully.' });
+  } catch (error) {
+    console.error('Error deleting category:', error);
     res.status(500).json({ success: false, error: error.message || 'Internal server error.' });
   }
 });
