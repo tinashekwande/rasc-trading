@@ -688,6 +688,7 @@ export default function AdminPage() {
 
           {/* 2.2 Manage Projects Content */}
           {activeTab === 'projects' && (
+            <>
             <div className="p-6 md:p-8 space-y-8 bg-white rounded-3xl shadow-md">
               <div>
                 <h3 className="font-semibold text-lg text-gray-900 mb-6">Add New Project</h3>
@@ -935,6 +936,7 @@ export default function AdminPage() {
                 </motion.div>
               )}
             </AnimatePresence>
+            </>
           )}
 
           {/* 2.3 Manage Team Content */}
