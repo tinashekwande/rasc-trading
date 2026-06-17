@@ -226,8 +226,8 @@ export const projects = [
   },
   {
     "id": "proj-imported-2",
-    "title": "Commercial Refurbishment 1",
-    "category": "Commercial",
+    "title": "Nutec House Exterior Build",
+    "category": "Nutec",
     "image": "/images/projects/imported-commercial-2.jpg"
   },
   {
@@ -274,8 +274,8 @@ export const projects = [
   },
   {
     "id": "proj-imported-10",
-    "title": "Commercial Refurbishment 4",
-    "category": "Commercial",
+    "title": "Nutec House Wall Cladding",
+    "category": "Nutec",
     "image": "/images/projects/imported-commercial-10.jpg"
   },
   {
@@ -388,14 +388,14 @@ export const projects = [
   },
   {
     "id": "proj-imported-29",
-    "title": "Premium Residential Build 11",
-    "category": "Residential",
+    "title": "Nutec Cabin Painting",
+    "category": "Nutec",
     "image": "/images/projects/imported-residential-29.jpg"
   },
   {
     "id": "proj-imported-30",
-    "title": "Premium Residential Build 12",
-    "category": "Residential",
+    "title": "Nutec Cabin Exterior Finish",
+    "category": "Nutec",
     "image": "/images/projects/imported-residential-30.jpg"
   },
   {
@@ -406,38 +406,38 @@ export const projects = [
   },
   {
     "id": "proj-imported-32",
-    "title": "Commercial Refurbishment 11",
-    "category": "Commercial",
+    "title": "Nutec Wall & Drainage Installation",
+    "category": "Nutec",
     "image": "/images/projects/imported-commercial-32.jpg"
   },
   {
     "id": "proj-imported-33",
-    "title": "Premium Residential Build 13",
-    "category": "Residential",
+    "title": "Nutec Foundation Joists",
+    "category": "Nutec",
     "image": "/images/projects/imported-residential-33.jpg"
   },
   {
     "id": "proj-imported-34",
-    "title": "Commercial Refurbishment 12",
-    "category": "Commercial",
+    "title": "Nutec House Extension with Sliding Door",
+    "category": "Nutec",
     "image": "/images/projects/imported-commercial-34.jpg"
   },
   {
     "id": "proj-imported-35",
-    "title": "Commercial Refurbishment 13",
-    "category": "Commercial",
+    "title": "Nutec Interior Room Finished",
+    "category": "Nutec",
     "image": "/images/projects/imported-commercial-35.jpg"
   },
   {
     "id": "proj-imported-36",
-    "title": "Premium Residential Build 14",
-    "category": "Residential",
+    "title": "Nutec Cottage Front Pathway",
+    "category": "Nutec",
     "image": "/images/projects/imported-residential-36.jpg"
   },
   {
     "id": "proj-imported-37",
-    "title": "Premium Residential Build 15",
-    "category": "Residential",
+    "title": "Nutec Timber Frame Leveling",
+    "category": "Nutec",
     "image": "/images/projects/imported-residential-37.jpg"
   },
   {
@@ -454,14 +454,14 @@ export const projects = [
   },
   {
     "id": "proj-imported-40",
-    "title": "Premium Residential Build 16",
-    "category": "Residential",
+    "title": "Nutec House Driveway View",
+    "category": "Nutec",
     "image": "/images/projects/imported-residential-40.jpg"
   },
   {
     "id": "proj-imported-41",
-    "title": "Premium Residential Build 17",
-    "category": "Residential",
+    "title": "Nutec Project Handover",
+    "category": "Nutec",
     "image": "/images/projects/imported-residential-41.jpg"
   },
   {
@@ -472,8 +472,8 @@ export const projects = [
   },
   {
     "id": "proj-imported-43",
-    "title": "Premium Residential Build 18",
-    "category": "Residential",
+    "title": "Nutec Kitchen Installation",
+    "category": "Nutec",
     "image": "/images/projects/imported-residential-43.jpg"
   },
   {
@@ -490,8 +490,8 @@ export const projects = [
   },
   {
     "id": "proj-imported-46",
-    "title": "Commercial Refurbishment 16",
-    "category": "Commercial",
+    "title": "Nutec House Boundary Construction",
+    "category": "Nutec",
     "image": "/images/projects/imported-commercial-46.jpg"
   },
   {
@@ -526,8 +526,8 @@ export const projects = [
   },
   {
     "id": "proj-imported-52",
-    "title": "Commercial Refurbishment 17",
-    "category": "Commercial",
+    "title": "Finished Nutec Cottage",
+    "category": "Nutec",
     "image": "/images/projects/imported-commercial-52.jpg"
   },
   {
