@@ -11,7 +11,7 @@ import ProjectCard from '../components/ProjectCard';
 import Lightbox from '../components/Lightbox';
 import SEO from '../components/SEO';
 import Breadcrumb from '../components/Breadcrumb';
-import { projects, projectCategories, companyInfo } from '../data/siteData';
+import { projects, companyInfo } from '../data/siteData';
 
 const pageVariants = {
   initial: { opacity: 0, y: 15 },
@@ -44,6 +44,25 @@ export default function ProjectsPage() {
   }, []);
 
   const activeProjectsList = dynamicProjects.length > 0 ? dynamicProjects : projects;
+
+  // Dynamically extract categories that actually have projects, maintaining a preferred order
+  const projectCategories = useMemo(() => {
+    const unique = new Set();
+    activeProjectsList.forEach((p) => {
+      if (p.category) {
+        unique.add(p.category);
+      }
+    });
+    const preferredOrder = ['Residential', 'Commercial', 'Renovation', 'White Boxing', 'Infrastructure', 'Nutec'];
+    const presentCategories = preferredOrder.filter(c => unique.has(c));
+    // Append any extra categories not in preferredOrder
+    unique.forEach(c => {
+      if (!preferredOrder.includes(c)) {
+        presentCategories.push(c);
+      }
+    });
+    return ['All', ...presentCategories];
+  }, [activeProjectsList]);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'All') return activeProjectsList;
