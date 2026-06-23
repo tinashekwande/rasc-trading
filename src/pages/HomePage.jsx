@@ -22,6 +22,7 @@ import OptimizedImage from '../components/OptimizedImage';
 
 // Data
 import { services, projects, companyInfo } from '../data/siteData';
+import { getServiceImage } from '../utils/imageMapper';
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -30,7 +31,6 @@ const pageVariants = {
 };
 
 export default function HomePage() {
-  const featuredServices = services.slice(0, 6);
   const [dynamicProjects, setDynamicProjects] = useState(null);
 
   // Fetch projects
@@ -56,6 +56,12 @@ export default function HomePage() {
 
   const activeProjectsList = dynamicProjects !== null ? dynamicProjects : [];
   const featuredProjects = activeProjectsList.slice(0, 6);
+
+  const dynamicServices = services.map(service => ({
+    ...service,
+    image: getServiceImage(service.id, activeProjectsList)
+  }));
+  const featuredServices = dynamicServices.slice(0, 6);
 
   // Lightbox state
   const [lightboxOpen, setLightboxOpen] = useState(false);

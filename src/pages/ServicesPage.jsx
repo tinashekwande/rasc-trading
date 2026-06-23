@@ -12,6 +12,7 @@ import SEO from '../components/SEO';
 import Breadcrumb from '../components/Breadcrumb';
 import OptimizedImage from '../components/OptimizedImage';
 import { services, companyInfo } from '../data/siteData';
+import { getServiceImage } from '../utils/imageMapper';
 
 const pageVariants = {
   initial: { opacity: 0, y: 15 },
@@ -21,6 +22,40 @@ const pageVariants = {
 
 export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState(null);
+  const [dynamicProjects, setDynamicProjects] = useState(null);
+
+  // Fetch projects from the Express API
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch('/api/projects');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data) {
+            setDynamicProjects(json.data);
+            return;
+          }
+        }
+        setDynamicProjects([]);
+      } catch (err) {
+        console.error('Failed to fetch projects for services page:', err);
+        setDynamicProjects([]);
+      }
+    };
+    fetchProjects();
+  }, []);
+
+  const activeProjectsList = dynamicProjects !== null ? dynamicProjects : [];
+
+  const dynamicServices = services.map(service => ({
+    ...service,
+    image: getServiceImage(service.id, activeProjectsList)
+  }));
+
+  // Resolve selected service dynamically to use the updated image when modal opens
+  const activeSelectedService = selectedService
+    ? dynamicServices.find(s => s.id === selectedService.id)
+    : null;
 
   // Prevent scroll when modal is open
   useEffect(() => {
@@ -109,7 +144,7 @@ export default function ServicesPage() {
 
           {/* Grid of 13 items */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((svc, idx) => (
+            {dynamicServices.map((svc, idx) => (
               <ServiceCard
                 key={svc.id}
                 service={svc}
@@ -123,7 +158,7 @@ export default function ServicesPage() {
 
       {/* ── Turnkey Services Scope Modals ── */}
       <AnimatePresence>
-        {selectedService && (
+        {selectedService && activeSelectedService && (
           <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 md:p-6 overflow-y-auto">
             {/* Backdrop close link trigger */}
             <div
@@ -151,8 +186,8 @@ export default function ServicesPage() {
               {/* Image Frame */}
               <div className="relative aspect-[21/9] bg-gray-50 border-b border-gray-100 overflow-hidden">
                 <OptimizedImage
-                  src={selectedService.image}
-                  alt={selectedService.title}
+                  src={activeSelectedService.image}
+                  alt={activeSelectedService.title}
                   width={840}
                   height={360}
                   className="w-full h-full object-cover"
@@ -168,22 +203,22 @@ export default function ServicesPage() {
                     Scope of Service
                   </span>
                   <h2 className="font-semibold text-2xl md:text-3xl text-gray-900">
-                    {selectedService.title}
+                    {activeSelectedService.title}
                   </h2>
                 </div>
 
                 <p className="text-sm md:text-base text-gray-500 leading-relaxed">
-                  {selectedService.description}
+                  {activeSelectedService.description}
                 </p>
 
                 {/* Specific features checklist */}
-                {selectedService.features && selectedService.features.length > 0 && (
+                {activeSelectedService.features && activeSelectedService.features.length > 0 && (
                   <div className="space-y-4">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500">
                       Standard Inclusions
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      {selectedService.features.map((feat, idx) => (
+                      {activeSelectedService.features.map((feat, idx) => (
                         <div key={idx} className="flex items-center gap-3 text-sm text-gray-700">
                           <FiCheckCircle className="text-primary flex-shrink-0" size={15} />
                           <span className="font-medium">{feat}</span>
