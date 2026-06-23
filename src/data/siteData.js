@@ -913,6 +913,11 @@ export const clientLogos = [
     image: '/images/clients/AM.jpg',
     alt: 'AM',
   },
+  {
+    id: 6,
+    image: '/images/clients/framecore.png',
+    alt: 'Framecore Construction',
+  },
 ];
 
 
