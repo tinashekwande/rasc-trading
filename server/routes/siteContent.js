@@ -138,6 +138,22 @@ const saveUploadedImage = async (base64Str, prefix) => {
   return `/images/uploads/${filename}`;
 };
 
+// Helper: Delete local image file
+const deleteLocalFile = (imagePath) => {
+  if (imagePath && imagePath.startsWith('/images/')) {
+    const localImagePath = join(__dirname, '..', '..', 'public', imagePath);
+    try {
+      if (fs.existsSync(localImagePath)) {
+        fs.unlinkSync(localImagePath);
+        console.log(`Deleted local file: ${localImagePath}`);
+      }
+    } catch (err) {
+      console.error(`Failed to delete local file ${localImagePath}:`, err);
+    }
+  }
+};
+
+
 // Seeding helper for Supabase
 const seedSupabaseIfEmpty = async () => {
   if (!supabase) return;
@@ -278,13 +294,17 @@ router.delete('/projects/:id', verifyAdmin, async (req, res) => {
 
       if (error) throw error;
 
-      if (project && project.image && project.image.includes(supabaseBucket)) {
-        try {
-          const urlParts = project.image.split('/');
-          const filename = urlParts[urlParts.length - 1];
-          await supabase.storage.from(supabaseBucket).remove([filename]);
-        } catch (storageErr) {
-          console.error('Failed to clean up image from Supabase Storage:', storageErr);
+      if (project && project.image) {
+        if (project.image.includes(supabaseBucket)) {
+          try {
+            const urlParts = project.image.split('/');
+            const filename = urlParts[urlParts.length - 1];
+            await supabase.storage.from(supabaseBucket).remove([filename]);
+          } catch (storageErr) {
+            console.error('Failed to clean up image from Supabase Storage:', storageErr);
+          }
+        } else {
+          deleteLocalFile(project.image);
         }
       }
 
@@ -293,10 +313,15 @@ router.delete('/projects/:id', verifyAdmin, async (req, res) => {
 
     let projectsList = readJSON(PROJECTS_FILE);
     const initialLength = projectsList.length;
+    const projectToDelete = projectsList.find(p => p.id === id);
     projectsList = projectsList.filter(p => p.id !== id);
 
     if (projectsList.length === initialLength) {
       return res.status(404).json({ success: false, error: 'Project not found.' });
+    }
+
+    if (projectToDelete && projectToDelete.image) {
+      deleteLocalFile(projectToDelete.image);
     }
 
     writeJSON(PROJECTS_FILE, projectsList);
@@ -348,13 +373,17 @@ router.put('/projects/:id', verifyAdmin, async (req, res) => {
       if (error) throw error;
 
       // Clean up old image from storage if replaced
-      if (oldImage && oldImage.includes(supabaseBucket) && savedImagePath !== oldImage) {
-        try {
-          const urlParts = oldImage.split('/');
-          const filename = urlParts[urlParts.length - 1];
-          await supabase.storage.from(supabaseBucket).remove([filename]);
-        } catch (storageErr) {
-          console.error('Failed to clean up old image from Supabase Storage:', storageErr);
+      if (oldImage && savedImagePath !== oldImage) {
+        if (oldImage.includes(supabaseBucket)) {
+          try {
+            const urlParts = oldImage.split('/');
+            const filename = urlParts[urlParts.length - 1];
+            await supabase.storage.from(supabaseBucket).remove([filename]);
+          } catch (storageErr) {
+            console.error('Failed to clean up old image from Supabase Storage:', storageErr);
+          }
+        } else {
+          deleteLocalFile(oldImage);
         }
       }
 
@@ -377,6 +406,7 @@ router.put('/projects/:id', verifyAdmin, async (req, res) => {
     }
 
     const oldProject = projectsList[projectIndex];
+    const oldImage = oldProject.image;
     const updatedProject = {
       ...oldProject,
       title,
@@ -386,6 +416,11 @@ router.put('/projects/:id', verifyAdmin, async (req, res) => {
 
     projectsList[projectIndex] = updatedProject;
     writeJSON(PROJECTS_FILE, projectsList);
+
+    // Clean up old local image file if replaced
+    if (oldImage && savedImagePath && savedImagePath !== oldImage) {
+      deleteLocalFile(oldImage);
+    }
 
     res.json({ success: true, data: updatedProject });
   } catch (error) {
@@ -476,13 +511,17 @@ router.delete('/team/:id', verifyAdmin, async (req, res) => {
 
       if (error) throw error;
 
-      if (member && member.image && member.image.includes(supabaseBucket)) {
-        try {
-          const urlParts = member.image.split('/');
-          const filename = urlParts[urlParts.length - 1];
-          await supabase.storage.from(supabaseBucket).remove([filename]);
-        } catch (storageErr) {
-          console.error('Failed to clean up image from Supabase Storage:', storageErr);
+      if (member && member.image) {
+        if (member.image.includes(supabaseBucket)) {
+          try {
+            const urlParts = member.image.split('/');
+            const filename = urlParts[urlParts.length - 1];
+            await supabase.storage.from(supabaseBucket).remove([filename]);
+          } catch (storageErr) {
+            console.error('Failed to clean up image from Supabase Storage:', storageErr);
+          }
+        } else {
+          deleteLocalFile(member.image);
         }
       }
 
@@ -491,10 +530,15 @@ router.delete('/team/:id', verifyAdmin, async (req, res) => {
 
     let teamList = readJSON(TEAM_FILE);
     const initialLength = teamList.length;
+    const memberToDelete = teamList.find(t => t.id === id);
     teamList = teamList.filter(t => t.id !== id);
 
     if (teamList.length === initialLength) {
       return res.status(404).json({ success: false, error: 'Team member not found.' });
+    }
+
+    if (memberToDelete && memberToDelete.image) {
+      deleteLocalFile(memberToDelete.image);
     }
 
     writeJSON(TEAM_FILE, teamList);
@@ -551,13 +595,17 @@ router.put('/team/:id', verifyAdmin, async (req, res) => {
       if (error) throw error;
 
       // 3. Clean up old image from storage if replaced
-      if (oldImage && oldImage.includes(supabaseBucket) && savedImagePath !== oldImage) {
-        try {
-          const urlParts = oldImage.split('/');
-          const filename = urlParts[urlParts.length - 1];
-          await supabase.storage.from(supabaseBucket).remove([filename]);
-        } catch (storageErr) {
-          console.error('Failed to clean up old image from Supabase Storage:', storageErr);
+      if (oldImage && savedImagePath !== oldImage) {
+        if (oldImage.includes(supabaseBucket)) {
+          try {
+            const urlParts = oldImage.split('/');
+            const filename = urlParts[urlParts.length - 1];
+            await supabase.storage.from(supabaseBucket).remove([filename]);
+          } catch (storageErr) {
+            console.error('Failed to clean up old image from Supabase Storage:', storageErr);
+          }
+        } else {
+          deleteLocalFile(oldImage);
         }
       }
 
@@ -578,6 +626,7 @@ router.put('/team/:id', verifyAdmin, async (req, res) => {
     }
 
     const oldMember = teamList[memberIndex];
+    const oldImage = oldMember.image;
     const updatedMember = {
       ...oldMember,
       name,
@@ -588,6 +637,11 @@ router.put('/team/:id', verifyAdmin, async (req, res) => {
 
     teamList[memberIndex] = updatedMember;
     writeJSON(TEAM_FILE, teamList);
+
+    // Clean up old local image file if replaced
+    if (oldImage && savedImagePath && savedImagePath !== oldImage) {
+      deleteLocalFile(oldImage);
+    }
 
     res.json({ success: true, data: updatedMember });
   } catch (error) {

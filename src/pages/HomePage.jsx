@@ -31,7 +31,7 @@ const pageVariants = {
 
 export default function HomePage() {
   const featuredServices = services.slice(0, 6);
-  const [dynamicProjects, setDynamicProjects] = useState([]);
+  const [dynamicProjects, setDynamicProjects] = useState(null);
 
   // Fetch projects
   useEffect(() => {
@@ -42,16 +42,19 @@ export default function HomePage() {
           const json = await res.json();
           if (json.success && json.data) {
             setDynamicProjects(json.data);
+            return;
           }
         }
+        setDynamicProjects(projects);
       } catch (err) {
         console.error('Failed to fetch home page projects:', err);
+        setDynamicProjects(projects);
       }
     };
     fetchProjects();
   }, []);
 
-  const activeProjectsList = dynamicProjects.length > 0 ? dynamicProjects : projects;
+  const activeProjectsList = dynamicProjects !== null ? dynamicProjects : [];
   const featuredProjects = activeProjectsList.slice(0, 6);
 
   // Lightbox state
@@ -248,15 +251,21 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-            {featuredProjects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onClick={() => openLightbox(index)}
-              />
-            ))}
-          </div>
+          {dynamicProjects === null ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+              {featuredProjects.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  onClick={() => openLightbox(index)}
+                />
+              ))}
+            </div>
+          )}
 
           {/* View All Projects Button */}
           <div className="text-center mt-12">

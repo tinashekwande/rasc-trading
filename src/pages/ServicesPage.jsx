@@ -69,7 +69,7 @@ export default function ServicesPage() {
       />
       {/* ── Page Hero ── */}
       <section className="relative h-[320px] md:h-[400px] flex items-center justify-center overflow-hidden bg-gray-950 text-white">
-        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40" style={{ backgroundImage: 'url(/images/projects/project-3.jpg)' }} />
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40" style={{ backgroundImage: 'url(/images/hero-bg.jpg)' }} />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/70 to-transparent" />
         <div className="relative z-10 text-center max-w-xl px-6">
           <motion.h1

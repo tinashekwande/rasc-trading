@@ -10,7 +10,7 @@ import { projects } from '../data/siteData';
 
 export default function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showcaseProjects, setShowcaseProjects] = useState(projects);
+  const [showcaseProjects, setShowcaseProjects] = useState(null);
 
   // Fetch projects from the gallery API
   useEffect(() => {
@@ -19,27 +19,41 @@ export default function HeroSection() {
         const res = await fetch('/api/projects');
         if (res.ok) {
           const json = await res.json();
-          if (json.success && json.data && json.data.length > 0) {
+          if (json.success && json.data) {
             setShowcaseProjects(json.data);
+            return;
           }
         }
+        setShowcaseProjects(projects);
       } catch (err) {
         console.error('Failed to fetch hero projects:', err);
+        setShowcaseProjects(projects);
       }
     };
     fetchProjects();
   }, []);
 
+  const defaultSlide = {
+    id: 'default-showcase',
+    title: 'Excellence in Construction',
+    category: 'Turnkey Solutions',
+    image: '/images/hero-bg.jpg'
+  };
+
+  const activeProjectsList = showcaseProjects !== null
+    ? (showcaseProjects.length > 0 ? showcaseProjects : [defaultSlide])
+    : [defaultSlide];
+
   // Auto sliding every 4 seconds
   useEffect(() => {
-    if (showcaseProjects.length === 0) return;
+    if (activeProjectsList.length <= 1) return;
     const timer = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % showcaseProjects.length);
+      setCurrentImageIndex((prev) => (prev + 1) % activeProjectsList.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, [showcaseProjects.length]);
+  }, [activeProjectsList.length]);
 
-  const activeProject = showcaseProjects[currentImageIndex % showcaseProjects.length] || null;
+  const activeProject = activeProjectsList[currentImageIndex % activeProjectsList.length];
 
   const getProjectSpecs = (project) => {
     if (!project) return { size: '3,000', unit: 'sq ft', detail: '3 Bedrooms', rating: 'Certified' };

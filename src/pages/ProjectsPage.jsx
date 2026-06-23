@@ -23,7 +23,7 @@ export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [dynamicProjects, setDynamicProjects] = useState([]);
+  const [dynamicProjects, setDynamicProjects] = useState(null);
 
   // Fetch projects from the Express API
   useEffect(() => {
@@ -34,16 +34,19 @@ export default function ProjectsPage() {
           const json = await res.json();
           if (json.success && json.data) {
             setDynamicProjects(json.data);
+            return;
           }
         }
+        setDynamicProjects(projects);
       } catch (err) {
         console.error('Failed to fetch projects from server:', err);
+        setDynamicProjects(projects);
       }
     };
     fetchProjects();
   }, []);
 
-  const activeProjectsList = dynamicProjects.length > 0 ? dynamicProjects : projects;
+  const activeProjectsList = dynamicProjects !== null ? dynamicProjects : [];
 
   // Dynamically extract categories that actually have projects, maintaining a preferred order
   const projectCategories = useMemo(() => {
@@ -101,7 +104,7 @@ export default function ProjectsPage() {
       />
       {/* ── Page Hero ── */}
       <section className="relative h-[320px] md:h-[400px] flex items-center justify-center overflow-hidden bg-gray-950 text-white">
-        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-45" style={{ backgroundImage: 'url(/images/projects/project-1.jpg)' }} />
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-45" style={{ backgroundImage: 'url(/images/hero-bg.jpg)' }} />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/70 to-transparent" />
         <div className="relative z-10 text-center max-w-xl px-6">
           <motion.h1
@@ -159,25 +162,31 @@ export default function ProjectsPage() {
             })}
           </div>
 
-          <motion.div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8" layout>
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.35 }}
-                >
-                  <ProjectCard
-                    project={project}
-                    onClick={() => openLightbox(index)}
-                  />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+          {dynamicProjects === null ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <motion.div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8" layout>
+              <AnimatePresence mode="popLayout">
+                {filteredProjects.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.35 }}
+                  >
+                    <ProjectCard
+                      project={project}
+                      onClick={() => openLightbox(index)}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
         </div>
       </section>
 
