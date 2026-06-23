@@ -141,12 +141,6 @@ export const services = [
 // ============================================
 export const projects = [
   {
-    "id": "proj-1781187441316",
-    "title": "Grand line",
-    "category": "Residential",
-    "image": "/images/uploads/project-1781187441311.jpg"
-  },
-  {
     "id": "proj-1",
     "title": "Modern Residence",
     "category": "Residential",
